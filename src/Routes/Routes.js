@@ -3,9 +3,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import Main from '../Layout/Main';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
+import Login from '../Pages/Login/Login';
 import Products from '../Pages/Products/Products';
 import AddProducts from '../Pages/Seller/AddProducts';
-import SignUp from '../Pages/SignUp/SignUp';
+import Register from '../Register/Register';
 
 const Routes =  createBrowserRouter([
         {
@@ -26,8 +27,12 @@ const Routes =  createBrowserRouter([
                     element:<AddProducts></AddProducts>
                 },
                 {
-                    path:'/signup',
-                    element:<SignUp></SignUp>
+                    path:'/login',
+                    element:<Login></Login>
+                },
+                {
+                    path:'/Register',
+                    element:<Register></Register>
                 }
             ]
         }

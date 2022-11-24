@@ -1,17 +1,29 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Contexts/AuthProvider";
 import logo from "../../../Resource/Logo/Indirect-white.png";
 
 const Navbar = () => {
   const [catagories, setCatagories] = useState([]);
+  const {user,logOut}= useContext(AuthContext)
+
+
+  const logoutHandler = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/catagories/`).then((data) => {
-      console.log(data);
-      setCatagories(data.data);
+    // axios.get(`http://localhost:5000/catagories/`).then((data) => {
+    fetch(`http://localhost:5000/catagories/`)
+    .then(res=> res.json())
+    .then((data) => {
+      // setCatagories(data.data);
+      setCatagories(data);
     });
   }, []);
 
@@ -36,7 +48,7 @@ const Navbar = () => {
         </Link>
         <ul className=" bg-primary p-2 ">
           {catagories?.map((category) => (
-            <li>
+            <li key={category._id}>
               <Link to={`/category/${category._id}`}>{category?.catagoriesName}</Link>
             </li>
           ))}
@@ -96,7 +108,13 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to='/signup' className="btn text-white">Login</Link>
+         {
+          user?.email ?
+
+           <button onClick={logoutHandler} className="btn text-white">Logout</button>
+           :
+           <Link to='/login' className="btn text-white">Login</Link>
+         }
         </div>
       </div>
     </div>
