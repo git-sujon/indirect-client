@@ -7,10 +7,10 @@ import toast from "react-hot-toast";
 import UseToken from "../Hooks/UseToken";
 
 const Register = () => {
-  const navigate= useNavigate()
-  const location =useLocation()
-  const from= location?.state?.from?.pathName || '/'
-  const [createdUseremail, setCreatedUseremail ] = useState('')
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathName || "/";
+  const [createdUseremail, setCreatedUseremail] = useState("");
   // const [token]= UseToken(createdUseremail)
 
   // if(token){
@@ -20,7 +20,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-   
+
     formState: { errors },
   } = useForm();
   const { logInWithPrvider, userSignUp, userProfileUpdate } =
@@ -28,52 +28,78 @@ const Register = () => {
   const googleProvider = new GoogleAuthProvider();
   const [loginError, setLoginError] = useState("");
 
+  // Register handler Start 
+  
   const registerHandler = (event) => {
-    console.log(event.name, event.photoURL);
+
     const userInfo = {
       displayName: event.name,
       photoURL: event.photoURL,
     };
+    storingUsers( event.name ,event?.photoURL, event?.photoFile, event.email, event.password, event.accountType )
 
-    userSignUp(event.email, event.password)
-      .then((res) => {
-        const user = res.user;
-        userProfileUpdate(userInfo)
-          .then(() => {
-            // storingUsers( event.name ,event.photoURL, event.email, event.password)
-          })
-          .catch((err) => {
-            setLoginError(err.message);
-
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoginError(err.message);
-      });
-
+    // userSignUp(event.email, event.password)
+    //   .then((res) => {
+    //     const user = res.user;
+    //     userProfileUpdate(userInfo)
+    //       .then(() => {
+    //         storingUsers( event.name ,event?.photoURL, event?.photoFile, event.email, event.password, event.accountType )
+    //       })
+    //       .catch((err) => {
+    //         setLoginError(err.message);
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     setLoginError(err.message);
+    //   });
   };
 
-  // const storingUsers = (name, photoURL, email, password) => {
-  //   const user= {
-  //     name, photoURL, email, password
-  //   }
-  //   fetch(`http://localhost:5000/users`, {
-  //     method:"POST", 
-  //     headers: {
-  //       "content-type": "application/json"
-  //     },
-  //     body:JSON.stringify(user)
-  //   })
-  //   .then(res=> res.json())
-  //   .then(data => {
-  //     console.log(data)
-  //     toast.success("User Created")
-  //     setCreatedUseremail(email)
-      
+  // Register handler End 
 
-  //   })
-  // }
+  const storingUsers = (name,photoURL, photoFile, email, password , accountType) => {
+    let photo;
+    photoURL ? photo= photoURL : photo = photoFile
+
+    // photo Uplode 
+    const formData = new FormData();
+    const image = photo[0];
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_image_host_API}`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        photo = imageData.data.display_url;
+        const user = {
+          name,
+          photo,
+          email,
+          password,
+          accountType
+        };
+        fetch(`http://localhost:5000/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `bearer ${localStorage.setItem('IndirectToken')}` 
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            toast.success("User Created");
+            setCreatedUseremail(email);
+          });
+
+  })
+
+ 
+  
+  
+  };
 
   const googleHandler = () => {
     logInWithPrvider(googleProvider)
@@ -87,9 +113,6 @@ const Register = () => {
         setLoginError(err.message);
       });
   };
-
-
-  
 
   return (
     <div className="my-32 px-10">
@@ -113,13 +136,43 @@ const Register = () => {
 
         <div className="form-control  ">
           <label className="label">
-            <span className="label-text">PhotoUrl</span>
+            <span className="label-text">Select Account Type</span>
           </label>
-          <input
-            type="text"
-            {...register("photoURL", { required: "THis Field is required" })}
-            className="input input-bordered  "
-          />
+          <select
+            {...register("accountType", { required: "This Field is required" })}
+            className="select select-bordered w-full"
+          >
+            <option>Buyer</option>
+            <option>Seller</option>
+          </select>
+
+          <p className="text-error">{errors?.type?.message}</p>
+        </div>
+
+        <div className="form-control  ">
+          <div className="flex justify-between items-center">
+            <div>
+              <label className="label">
+                <span className="label-text">Upload Your Photo</span>
+              </label>
+              <input
+                type="file"
+                {...register("photoFile")}
+                className="file-input file-input-bordered file-input-md file-input-natural w-3/5"
+              />
+            </div>
+            <div className="divider divider-horizontal">OR</div>
+            <div>
+              <label className="label">
+                <span className="label-text">Provide Photo URL</span>
+              </label>
+              <input
+                type="text"
+                {...register("photoURL")}
+                className="input input-bordered input-md "
+              />
+            </div>
+          </div>
 
           <p className="text-error">{errors?.photoURL?.message}</p>
         </div>
@@ -130,7 +183,7 @@ const Register = () => {
           </label>
           <input
             type="text"
-            {...register("email", { required: "THis Field is required" })}
+            {...register("email", { required: "This Field is required" })}
             className="input input-bordered  "
           />
 
@@ -146,7 +199,7 @@ const Register = () => {
             {...register(
               "password",
               {
-                required: "THis Field is required",
+                required: "This Field is required",
                 minLength: {
                   value: 6,
                   message: "At least Six Characters",

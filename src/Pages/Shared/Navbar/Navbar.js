@@ -35,7 +35,7 @@ const Navbar = () => {
 
       <li className="relative bg-primary " tabIndex={1}>
         <Link className="bg-primary justify-between">
-          Parent
+          Catagories
           <svg
             className="fill-current"
             xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +48,8 @@ const Navbar = () => {
         </Link>
         <ul className=" bg-primary p-2 ">
           {catagories?.map((category) => (
-            <li key={category._id}>
-              <Link to={`/category/${category._id}`}>{category?.catagoriesName}</Link>
+            <li key={category?._id}>
+              <Link to={`/category/${category?._id}`}>{category?.catagoriesName}</Link>
             </li>
           ))}
         </ul>
