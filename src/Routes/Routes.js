@@ -4,8 +4,7 @@ import Main from '../Layout/Main';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
 
-const Routes = () => {
-    const router = createBrowserRouter([
+const Routes =  createBrowserRouter([
         {
             path:'/',
             element:<Main></Main>,
@@ -18,6 +17,6 @@ const Routes = () => {
             ]
         }
     ])
-};
+
 
 export default Routes;
