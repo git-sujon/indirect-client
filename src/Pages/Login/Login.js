@@ -30,6 +30,7 @@ const Login = () => {
   // }
 
   const handlerForm = (event) => {
+    console.log(event.accountType)
     setLoginError('')
     userLogin(event.email, event.password)
     .then(res=> {
@@ -68,6 +69,21 @@ const Login = () => {
         onSubmit={handleSubmit(handlerForm)}
         className="flex flex-col lg:w-2/6 md:w-3/6 space-y-4 mx-auto"
       >
+        <div className="form-control  ">
+          <label className="label">
+            <span className="label-text">Select Account Type</span>
+          </label>
+          <select
+            {...register("accountType", { required: "This Field is required" })}
+            className="select select-bordered w-full"
+          >
+            <option>Buyer</option>
+            <option>Seller</option>
+          </select>
+
+          <p className="text-error">{errors?.type?.message}</p>
+        </div>
+
         <div className="form-control  ">
           <label className="label">
             <span className="label-text">Email</span>

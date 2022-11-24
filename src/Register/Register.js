@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthProvider";
 import toast from "react-hot-toast";
 import UseToken from "../Hooks/UseToken";
+import Spinner from '../Pages/Shared/Spinner/Spinner'
+import CreateUsers from "../Pages/Shared/CreateUsers/CreateUsers";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -12,6 +14,8 @@ const Register = () => {
   const from = location?.state?.from?.pathName || "/";
   const [createdUseremail, setCreatedUseremail] = useState("");
   // const [token]= UseToken(createdUseremail)
+  const [photoUploadUrl, setPhotoUploadUrl] = useState('')
+
 
   // if(token){
   //   navigate('/')
@@ -20,9 +24,12 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
 
     formState: { errors },
   } = useForm();
+
+
   const { logInWithPrvider, userSignUp, userProfileUpdate } =
     useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
@@ -32,31 +39,32 @@ const Register = () => {
   
   const registerHandler = (event) => {
 
+    
     const userInfo = {
       displayName: event.name,
-      photoURL: event.photoURL,
+      photoURL: event.photoURL ? event.photoURL : photoUploadUrl,
     };
-    storingUsers( event.name ,event?.photoURL, event?.photoFile, event.email, event.password, event.accountType )
+  
 
-    // userSignUp(event.email, event.password)
-    //   .then((res) => {
-    //     const user = res.user;
-    //     userProfileUpdate(userInfo)
-    //       .then(() => {
-    //         storingUsers( event.name ,event?.photoURL, event?.photoFile, event.email, event.password, event.accountType )
-    //       })
-    //       .catch((err) => {
-    //         setLoginError(err.message);
-    //       });
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     setLoginError(err.message);
-    //   });
+
+    userSignUp(event.email, event.password)
+      .then((res) => {
+        const user = res.user;
+        userProfileUpdate(userInfo)
+          .then(() => {
+            storingUsers( event.name ,event?.photoURL, event?.photoFile, event.email, event.password, event.accountType )
+          })
+          .catch((err) => {
+            setLoginError(err.message);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoginError(err.message);
+      });
   };
 
   // Register handler End 
-
   const storingUsers = (name,photoURL, photoFile, email, password , accountType) => {
     let photo;
     photoURL ? photo= photoURL : photo = photoFile
@@ -73,26 +81,21 @@ const Register = () => {
       .then((res) => res.json())
       .then((imageData) => {
         photo = imageData.data.display_url;
-        const user = {
+        
+        const userInfo = {
           name,
           photo,
           email,
           password,
-          accountType
+          accountType,
+          isVerified: false,
+          isAdmin: false,
         };
-        fetch(`http://localhost:5000/users`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            authorization: `bearer ${localStorage.setItem('IndirectToken')}` 
-          },
-          body: JSON.stringify(user),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            toast.success("User Created");
-            setCreatedUseremail(email);
-          });
+       
+        setPhotoUploadUrl(photo)
+        
+        
+        CreateUsers(userInfo)
 
   })
 
@@ -105,8 +108,8 @@ const Register = () => {
     logInWithPrvider(googleProvider)
       .then((res) => {
         const user = res.user;
-        console.log(user);
-        // storingUsers( user.displayName ,user.photoURL, user.email, user?.password)
+ 
+        storingUsers( user.displayName ,user.photoURL, user.email, )
       })
       .catch((err) => {
         console.error(err);
@@ -158,7 +161,7 @@ const Register = () => {
               <input
                 type="file"
                 {...register("photoFile")}
-                className="file-input file-input-bordered file-input-md file-input-natural w-3/5"
+                className="file-input file-input-bordered file-input-md file-input-accent w-3/5"
               />
             </div>
             <div className="divider divider-horizontal">OR</div>
