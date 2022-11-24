@@ -44,6 +44,9 @@ const Navbar = () => {
       </li>
 
       <li>
+        <Link to="/addProducts">Add Products</Link>
+      </li>
+      <li>
         <Link to="">Blog</Link>
       </li>
       <li>
@@ -93,7 +96,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link className="btn text-white">Login</Link>
+          <Link to='/signup' className="btn text-white">Login</Link>
         </div>
       </div>
     </div>

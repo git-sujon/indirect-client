@@ -4,6 +4,8 @@ import Main from '../Layout/Main';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
 import Products from '../Pages/Products/Products';
+import AddProducts from '../Pages/Seller/AddProducts';
+import SignUp from '../Pages/SignUp/SignUp';
 
 const Routes =  createBrowserRouter([
         {
@@ -18,6 +20,14 @@ const Routes =  createBrowserRouter([
                 {
                     path:'category/:id',
                     element:<Products></Products>
+                },
+                {
+                    path:'/addProducts',
+                    element:<AddProducts></AddProducts>
+                },
+                {
+                    path:'/signup',
+                    element:<SignUp></SignUp>
                 }
             ]
         }
