@@ -12,7 +12,7 @@ const CreateUsers = (userInfo) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          toast.success("User Created");
+          toast.success("User Login");
           // setCreatedUseremail(email);
         
         });

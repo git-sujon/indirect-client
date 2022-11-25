@@ -1,20 +1,37 @@
+
 import React from "react";
+import Lottie from 'react-lottie';
 import { Link, useRouteError } from "react-router-dom";
+import Error404Animation from '../../Resource/Anmation/98642-error-404.json'
 
 const ErrorPage = () => {
     const error = useRouteError();
     // console.error(error.message);
-
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: Error404Animation,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    };
 
 
   return (
     <div class="grid h-screen px-4 bg-white place-content-center">
-      <div class="text-center">
-        <h1 class="font-black text-gray-200 text-9xl">404</h1>
+      <div>
+        {/* {Error404Animation} */}
+        <div>
+      <Lottie 
+	    options={defaultOptions}
+        height={400}
+        width={400}
+      />
+    </div>
 
-        <p class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Uh-oh!
-        </p>
+      </div>
+      <div class="text-center">
+        
 
         <p class="mt-4 text-gray-500">{error.message}</p>
 

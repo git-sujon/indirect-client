@@ -14,6 +14,8 @@ const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
     console.log(user)
     const [loading, setLoading] = useState(true)
+    const [emailData,setEmailData] = useState({})
+    const [hostedPhotoUrl,setHostedPhotoUrl] =useState('')
 
 
     const userLogin = (email, password) => {
@@ -36,6 +38,45 @@ const AuthProvider = ({children}) => {
     const userProfileUpdate = (userInfo) => {
         return updateProfile(auth.currentUser, userInfo)
     }
+    
+ 
+    
+
+    const userEmailQueryData = (email) => {
+        // setLoading(true)
+  // axios
+    // .post(`http://localhost:5000/users?email=${event?.email}`)
+    fetch(`http://localhost:5000/users?email=${email}`, {
+      method: "GET",
+      // headers: {
+      //   "content-type": "application/json",
+      // authorization: `bearer ${localStorage.setItem('IndirectToken')}`
+      // },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setEmailData(data[0]);
+    });
+    }
+
+    const ImageHosting = (photoFilePath) => {
+    
+        setLoading(true)
+        const formData = new FormData();
+        formData.append("image", photoFilePath);
+        const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_image_host_API}`;
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        })
+        .then((res) => res.json())
+          .then((imageData) => {
+            const photoUrl= imageData?.data?.display_url;
+            console.log(photoUrl)
+            setHostedPhotoUrl(photoUrl)
+          })
+        
+    };
 
 
     useEffect(()=>{
@@ -57,7 +98,8 @@ const AuthProvider = ({children}) => {
         logInWithPrvider,
         logOut,
         userProfileUpdate,
-        loading, setLoading,
+        loading, setLoading,userEmailQueryData, emailData,
+        ImageHosting, hostedPhotoUrl,   
         
     }
 
