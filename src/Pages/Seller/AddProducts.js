@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import Spinner from "../Shared/Spinner/Spinner";
 import logo from '../../Resource/Logo/Indirect-accent.png'
+import toast from "react-hot-toast";
 
 const AddProducts = () => {
   const {
@@ -15,7 +16,7 @@ const AddProducts = () => {
     formState: { errors },
   } = useForm();
 
-  const { user, userEmailQueryData, emailData } = useContext(AuthContext);
+  const { user, userEmailQueryData, emailData , ImageHosting, hostedPhotoUrl} = useContext(AuthContext);
 
 
   const productInfoWithText = ["Property_Name", "Location"];
@@ -47,6 +48,8 @@ const AddProducts = () => {
     "InterCom",
   ];
 
+  const propertyCondition = ["Excellent" ,"GOOD", "Fair", "Poor", "Really Bad"]
+
   useEffect(()=> {
     userEmailQueryData(user?.email)
   }, [user?.email])
@@ -62,17 +65,15 @@ const AddProducts = () => {
   if (!user && isLoading && !emailData) {
     return <Spinner></Spinner>;
   }
-
-  console.log(emailData);
-  const addProductsHandler = (event) => {
   
+  const addProductsHandler = (event) => {
 
-   
+    ImageHosting(event.productPhoto[0])
 
     const productInfo = {
       Property_Name: event.Property_Name,
       Location: event.Location,
-      productPhoto: event.productPhoto,
+      productPhoto: hostedPhotoUrl,
       sellerName: event.sellerName,
       Phone_Number: event.Phone_Number,
       Total_Size_Sqr_Feet: event.Total_Size_Sqr_Feet,
@@ -96,9 +97,24 @@ const AddProducts = () => {
       Solar_Panels: event.Solar_Panels,
       InterCom: event.InterCom,
       category:event.category,
+      condition: event.condition,
       emailData,
     };
 
+    fetch(`http://localhost:5000/products`, {
+        method: "POST",
+        headers:{
+            "content-type": "application/json"
+        },
+        body:JSON.stringify(productInfo)
+    })
+    .then(res=> res.json())
+    .then(data => {
+        console.log(data)
+        if(data.acknowledged){
+            toast.success("Product Added")
+        }
+    })
     
   };
 
@@ -159,9 +175,10 @@ const AddProducts = () => {
               Seller Name
             </label>
             <input
-              {...register("sellerName", {
-                required: "THis Field is required",
-              })}
+              {...register("sellerName")}
+              required
+              defaultValue={emailData?.name}
+              readOnly
               type="text"
               className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
             />
@@ -189,10 +206,30 @@ const AddProducts = () => {
         </div>
         {/* .................... */}
 
-        {/* ................. Option BASED  */}
-        <div className="my-5">
+        {/* ................. Option BASED Product Condition  */}
+        <div className="my-5 flex justify-between items-center">
           <label
-            className="text-gray-700 dark:text-gray-900 mr-5 "
+            className="text-gray-700 dark:text-gray-900  "
+            htmlFor="username"
+          >
+            Select Property Overall Condition
+          </label>
+          <select
+            {...register(`condition`)}
+            className="select select-success w-full max-w-xs"
+          >
+            {propertyCondition?.map((condition, idx) => (
+              <option key={idx} value={condition}>
+                {condition}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* .................  */}
+        {/* ................. Option BASED Product catagories */}
+        <div className="my-5 flex justify-between items-center">
+          <label
+            className="text-gray-700 dark:text-gray-900 "
             htmlFor="username"
           >
             Select Product Category
@@ -207,7 +244,6 @@ const AddProducts = () => {
               </option>
             ))}
           </select>
-          <p className="text-error">{errors?.name?.message}</p>
         </div>
         {/* .................  */}
         {/* ................. Check BASED  */}

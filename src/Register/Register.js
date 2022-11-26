@@ -92,7 +92,7 @@ const Register = () => {
 
     const photoFilePath=photoFile[0] 
     ImageHosting(photoFilePath)
-    console.log(hostedPhotoUrl);
+  
 
     let photo;
     photoURL ? (photo = photoURL) : (photo = hostedPhotoUrl);
