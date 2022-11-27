@@ -160,9 +160,9 @@ const AddProducts = () => {
         {/* image file and others  */}
 
         <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
-          <div class="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
+          <div className="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
             <svg
-              class="text-neutral  w-16 mx-auto mb-4"
+              className="text-neutral  w-16 mx-auto mb-4"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -175,14 +175,14 @@ const AddProducts = () => {
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               />
             </svg>
-            <div class="input_field flex flex-col w-max mx-auto text-center">
+            <div className="input_field flex flex-col w-max mx-auto text-center">
               <label>
                 <input
-                  class="text-sm cursor-pointer  hidden"
+                  className="text-sm cursor-pointer  hidden"
                   type="file"
                   {...register("productPhoto")}
                 />
-                <div class="text bg-neutral text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-secondary">
+                <div className="text bg-neutral text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-secondary">
                   Select Photo
                 </div>
               </label>

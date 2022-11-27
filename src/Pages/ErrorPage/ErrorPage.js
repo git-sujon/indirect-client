@@ -18,7 +18,7 @@ const ErrorPage = () => {
 
 
   return (
-    <div class="grid h-screen px-4 bg-white place-content-center">
+    <div className="grid h-screen px-4 bg-white place-content-center">
       <div>
         {/* {Error404Animation} */}
         <div>
@@ -30,14 +30,14 @@ const ErrorPage = () => {
     </div>
 
       </div>
-      <div class="text-center">
+      <div className="text-center">
         
 
-        <p class="mt-4 text-gray-500">{error.message}</p>
+        <p className="mt-4 text-gray-500">{error.message}</p>
 
         <Link
           to="/"
-          class="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
+          className="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
         >
           Go Back Home
         </Link>

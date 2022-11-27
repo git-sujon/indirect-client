@@ -75,11 +75,11 @@ const ConfirmationModal = ({ product, setBooking }) => {
           </label>
           {/* .................................................. */}
 
-          <div class="grid ">
+          <div className="grid ">
             <h1 className="text-center text-2xl text-neutral font-semibold uppercase mb-3">
               Booking Now
             </h1>
-            <div class=" p-x-12 bg-white mt-2">
+            <div className=" p-x-12 bg-white mt-2">
               <div className="text-sm">
                 <p>
                   {" "}
@@ -111,14 +111,14 @@ const ConfirmationModal = ({ product, setBooking }) => {
                 </p>
               </div>
               <form
-                class="mt-6"
+                className="mt-6"
                 onSubmit={handleSubmit(confirmationModalHandler)}
               >
-                <div class="flex justify-between gap-3">
-                  <span class="w-1/2">
+                <div className="flex justify-between gap-3">
+                  <span className="w-1/2">
                     <label
                       for="firstname"
-                      class="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
+                      className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                     >
                       <UserIcon className="w-5 mr-2"></UserIcon>Your Name
                     </label>
@@ -129,14 +129,14 @@ const ConfirmationModal = ({ product, setBooking }) => {
                       defaultValue={user?.displayName}
                       readOnly
                       disabled
-                      class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                      className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
                       required
                     />
                   </span>
-                  <span class="w-1/2">
+                  <span className="w-1/2">
                     <label
                       for="lastname"
-                      class="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
+                      className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                     >
                       <PhoneIcon className="w-5 mr-2"></PhoneIcon> Your Phone
                     </label>
@@ -144,14 +144,14 @@ const ConfirmationModal = ({ product, setBooking }) => {
                       id="lastname"
                       type="phone"
                       {...register("buyerPhone")}
-                      class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                      className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
                       required
                     />
                   </span>
                 </div>
                 <label
                   for="email"
-                  class="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
+                  className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                 >
                   <EnvelopeIcon className="w-5 mr-2"></EnvelopeIcon> Your Email
                 </label>
@@ -162,13 +162,13 @@ const ConfirmationModal = ({ product, setBooking }) => {
                   readOnly
                   disabled
                   {...register("buyerEmail")}
-                  class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
                   required
                 />
 
                 <label
                   for="text"
-                  class=" mt-2 text-xs font-semibold text-gray-600 uppercase flex items-center"
+                  className=" mt-2 text-xs font-semibold text-gray-600 uppercase flex items-center"
                 >
                   <MapPinIcon className="w-5 mr-2"></MapPinIcon> Metring
                   Location
@@ -177,13 +177,13 @@ const ConfirmationModal = ({ product, setBooking }) => {
                   id="text"
                   type="text"
                   {...register("buyerLocation")}
-                  class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
+                  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner"
                   required
                 />
 
                 <button
                   type="submit"
-                  class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-neutral shadow-lg focus:outline-none hover:bg-secondary hover:shadow-none"
+                  className="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-neutral shadow-lg focus:outline-none hover:bg-secondary hover:shadow-none"
                 >
                   Submit
                 </button>

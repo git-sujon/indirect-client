@@ -13,7 +13,7 @@ const CatagoriesShowcase = () => {
           return data;
         },
       });
-      console.log(catagories);
+
 
     return (
         <div className='my-20'>
