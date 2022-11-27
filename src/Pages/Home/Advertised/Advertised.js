@@ -26,12 +26,12 @@ const Advertised = () => {
   let advertProducts = [];
   products.forEach((product) => {
     if (product?.isAdvertized?.isAdvertized) {
-      console.log(product);
+
       return advertProducts.push(product);
     }
     return advertProducts;
   });
-  console.log(advertProducts);
+ 
 
   //   console.log(products);
 

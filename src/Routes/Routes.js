@@ -1,6 +1,10 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Main from '../Layout/Main';
+import Blog from '../Pages/Blog/Blog';
+import BlogDetails from '../Pages/Blog/BlogDetails/BlogDetails';
+import MyOrders from '../Pages/Buyer/MyOrders';
+import Payment from '../Pages/Dashboard/Payment/Payment';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
@@ -25,6 +29,16 @@ const Routes =  createBrowserRouter([
                     loader:({params})=> fetch(`http://localhost:5000/catagories/${params.id}`)
                 },
                 {
+                    path:'blog',
+                    element:<Blog></Blog>,
+                    loader:()=> fetch(`http://localhost:5000/blogs`)
+                },
+                {
+                    path:'blog/:id',
+                    element:<BlogDetails></BlogDetails>,
+                    loader:({params})=> fetch(`http://localhost:5000/blogs/${params.id}`)
+                },
+                {
                     path:'/addProducts',
                     element:<AddProducts></AddProducts>
                 },
@@ -39,6 +53,15 @@ const Routes =  createBrowserRouter([
                 {
                     path:'/myProducts',
                     element:<MyProducts></MyProducts>
+                },
+                {
+                    path: '/myOrders',
+                    element:<MyOrders></MyOrders>,
+                },
+                {
+                    path: '/payment/:id',
+                    element:<Payment></Payment>,
+                    loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
                 }
             ]
         }

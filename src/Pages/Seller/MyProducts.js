@@ -8,7 +8,7 @@ import Spinner from "../Shared/Spinner/Spinner";
 const MyProducts = () => {
   // const [products, setProducts] = useState([])
   const { user } = useContext(AuthContext);
-  const [toggle, setToggle] = useState(true)
+  const [toggle, setToggle] = useState(true);
 
   const {
     data: products = [],
@@ -42,23 +42,22 @@ const MyProducts = () => {
     fetch(`http://localhost:5000/products/${product._id}`, {
       method: "PUT",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      body: JSON.stringify({isAdvertized: toggle})
+      body: JSON.stringify({ isAdvertized: toggle }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if(data.matchedCount > 0){
-            {
-                product?.isAdvertized?.isAdvertized ?
-                toast.error(`Your AD is Stop`)  : toast.success(`Your AD is Running Now `)  
-            }
-            setToggle(!toggle)
-            refetch();
+        if (data.matchedCount > 0) {
+          {
+            product?.isAdvertized?.isAdvertized
+              ? toast.error(`Your AD is Stop`)
+              : toast.success(`Your AD is Running Now `);
+          }
+          setToggle(!toggle);
+          refetch();
         }
-       
-        
       });
   };
 
@@ -111,20 +110,21 @@ const MyProducts = () => {
                 <td className="text-neutral text-sm font-semibold">
                   ${product?.Selling_Price}
                 </td>
-                <td className="flex items-center">
+                <td className="flex items-center  relative">
                   <button
                     onClick={() => makeAdvertizedHandler(product)}
-                    className="btn btn-accent btn-xs"
+                    className="btn btn-accent btn-xs "
                   >
                     Advertised{" "}
                   </button>{" "}
-                  {
-                    product?.isAdvertized?.isAdvertized &&
-                    <div
-                    className="ml-2 spinner-grow inline-block w-4 h-4 bg-success rounded-full opacity-100"
-                    role="status"
-                  ></div>
-                  }
+                  {product?.isAdvertized?.isAdvertized && (
+                    <div className="">
+                      <span class="absolute top-5 right-10 z-20 flex  h-8 w-8">
+                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex h-5 w-5 rounded-full bg-green-500"></span>
+                      </span>
+                    </div>
+                  )}
                 </td>
                 <td>
                   <button
