@@ -9,8 +9,10 @@ import {
   QueueListIcon,
   UsersIcon,
 } from "@heroicons/react/24/solid";
+import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setProduct }) => {
+
   const {
     Property_Name,
     Location,
@@ -43,6 +45,8 @@ const ProductCard = ({ product }) => {
     emailData,
     Timestamp,
   } = product;
+ 
+
   // console.log(emailData)
 
   const dateTime = new Date(Timestamp);
@@ -133,11 +137,11 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
 
-          <div class="sm:inline-flex sm:shrink-0 sm:items-center">
+          <div class="sm:inline-flex items-center sm:shrink-0 sm:items-center">
             <CurrencyDollarIcon className="h-4 w-4 text-neutral"></CurrencyDollarIcon>
-            <div class="mt-1.5 sm:ml-3 sm:mt-0">
+            
               <p class="font-medium">{Original_Price} Buying Price</p>
-            </div>
+            
           </div>
         </div>
         {/* ....................  */}
@@ -147,13 +151,18 @@ const ProductCard = ({ product }) => {
             <p className="mb-0 text-gray-400 ">{category}</p>
           </div>
 
-          <div>
-          <button className="btn btn-sm btn-neutral rounded-none ">Book Now</button>
+          <div onClick={()=>setProduct(product)}>
+          <label htmlFor="confirmationModal" className="btn btn-sm btn-neutral rounded-none ">Book Now</label>
         </div>
+
+     
+
         </div>
 
        
       </div>
+
+      
     </div>
   );
 };

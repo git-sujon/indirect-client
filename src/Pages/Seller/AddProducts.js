@@ -12,7 +12,7 @@ const AddProducts = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    
     formState: { errors },
   } = useForm();
 
@@ -22,7 +22,6 @@ const AddProducts = () => {
   const productInfoWithText = ["Property_Name", "Location"];
 
   const productInfoWithNumbers = [
-    "Phone_Number",
     "Total_Size_Sqr_Feet",
     "Selling_Price",
     "Original_Price",
@@ -31,6 +30,7 @@ const AddProducts = () => {
     "In_which_floor",
     "Total_Bedroom",
     "Total_Bath_Room",
+    "Total_Balconies",
     "Building_Age",
     "Total_Flat",
     "Land_Size_Sqr_Feet",
@@ -100,26 +100,26 @@ const AddProducts = () => {
       productDescription: event.productDescription,
       emailData,
       isSold: false,
-      isAdvertized: false
+      isAdvertized: false,
     };
 
-    if(hostedPhotoUrl) {
+    if (hostedPhotoUrl) {
       fetch(`http://localhost:5000/products`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(productInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
-          toast.success("Product Added");
-        }
-      });
-  };
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(productInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            toast.success("Product Added");
+          }
+        });
     }
+  };
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md my-10">
@@ -144,6 +144,7 @@ const AddProducts = () => {
               <input
                 {...register(`${name}`)}
                 type="text"
+                required
                 className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
               <p className="text-error"></p>
@@ -154,37 +155,69 @@ const AddProducts = () => {
         {/* image file and others  */}
 
         <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
-          <div>
-            <label
-              className="text-gray-700 dark:text-gray-900"
-              htmlFor="username"
+          <div class="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
+            <svg
+              class="text-neutral  w-16 mx-auto mb-4"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              Property Photo
-            </label>
-            <input
-              {...register("productPhoto", {
-                required: "THis Field is required",
-              })}
-              type="file"
-              className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              />
+            </svg>
+            <div class="input_field flex flex-col w-max mx-auto text-center">
+              <label>
+                <input
+                  class="text-sm cursor-pointer  hidden"
+                  type="file"
+                  {...register("productPhoto")}
+                />
+                <div class="text bg-neutral text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-secondary">
+                  Select Photo
+                </div>
+              </label>
+            </div>
           </div>
 
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-900"
-              htmlFor="username"
-            >
-              Seller Name
-            </label>
-            <input
-              {...register("sellerName")}
-              required
-              defaultValue={emailData?.name}
-              readOnly
-              type="text"
-              className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
+            <div>
+              <label
+                className="text-gray-700 dark:text-gray-900"
+                htmlFor="username"
+              >
+                Seller Name
+              </label>
+              <input
+                {...register("sellerName")}
+                required
+                defaultValue={emailData?.name}
+                readOnly
+                type="text"
+                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              />
+            </div>
+
+            <div>
+              <label
+                className="text-gray-700 dark:text-gray-900"
+                htmlFor="username"
+              >
+                Seller Phone Number
+              </label>
+              <input
+                {...register("Phone_Number")}
+                required
+                defaultValue={emailData?.name}
+                readOnly
+                type="text"
+                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              />
+            </div>
           </div>
         </div>
 
@@ -460,7 +493,7 @@ const AddProducts = () => {
           </div>
           <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-secondary">
             <label for="editor" className="sr-only">
-            Write full Description
+              Write full Description
             </label>
             <textarea
               id="editor"
