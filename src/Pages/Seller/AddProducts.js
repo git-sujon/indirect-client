@@ -98,9 +98,14 @@ const AddProducts = () => {
       category: event.category,
       condition: event.condition,
       productDescription: event.productDescription,
-      emailData,
       isSold: false,
       isAdvertized: false,
+      isBooked: false,
+      isVerified:false,
+      email:emailData.email,
+      sellerID: emailData._id,
+      accountType:emailData.accountType,
+   
     };
 
     if (hostedPhotoUrl) {

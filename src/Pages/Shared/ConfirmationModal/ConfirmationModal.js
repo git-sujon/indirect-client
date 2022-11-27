@@ -9,7 +9,7 @@ import {
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import toast from "react-hot-toast";
 
-const ConfirmationModal = ({ product }) => {
+const ConfirmationModal = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
   const {
     register,
@@ -25,7 +25,16 @@ const ConfirmationModal = ({ product }) => {
         buyerEmail: user?.email,
         buyerPhone:event.buyerPhone,
         buyerLocation: event.buyerLocation,
-        product,
+        productName: product.Property_Name,
+        productPrice: product.Selling_Price,
+        productPhoto: product.productPhoto,
+        productId: product._id,
+        sellerName: product.sellerName,
+        Phone_Number: product.Phone_Number,
+        productCategory: product.category,
+        Total_Size_Sqr_Feet: product.Total_Size_Sqr_Feet,
+        propertyLocation: product.Location,
+        
     };
 
     fetch(`http://localhost:5000/bookings`,{
@@ -39,6 +48,7 @@ const ConfirmationModal = ({ product }) => {
     .then(data=> {
         if(data.acknowledged){
             toast.success("Booking Done")
+            setBooking(booking)
         }
     })
 

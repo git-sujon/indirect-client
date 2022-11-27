@@ -42,12 +42,13 @@ const ProductCard = ({ product, setProduct }) => {
     category,
     condition,
     productDescription,
-    emailData,
+
     Timestamp,
+    isVerified
   } = product;
  
 
-  // console.log(emailData)
+
 
   const dateTime = new Date(Timestamp);
   const dividingTime = dateTime?.toLocaleString()?.split(":");
@@ -92,7 +93,7 @@ const ProductCard = ({ product, setProduct }) => {
             <UsersIcon className="h-4 w-4 text-neutral"></UsersIcon>
             <div class="mt-1.5 sm:ml-3 sm:mt-0 flex items-center">
               <p class="font-medium">{sellerName}</p>
-              {emailData.isVerified && (
+              {isVerified && (
                 <CheckBadgeIcon className="h-5 w-5 text-blue-500"></CheckBadgeIcon>
               )}
             </div>

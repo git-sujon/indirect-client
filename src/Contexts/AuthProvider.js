@@ -19,23 +19,28 @@ const AuthProvider = ({children}) => {
 
 
     const userLogin = (email, password) => {
+        setLoading(true)
         return signInWithEmailAndPassword(auth,email, password )
     }
 
     const userSignUp =(email, password) => {
+        setLoading(true)
         return createUserWithEmailAndPassword( auth, email, password)
     }
 
 
     const logInWithPrvider =(provider) => {
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
 
     const logOut = () => {
+        setLoading(true)
         return signOut(auth)
     }
 
     const userProfileUpdate = (userInfo) => {
+        setLoading(true)
         return updateProfile(auth.currentUser, userInfo)
     }
     
@@ -43,7 +48,7 @@ const AuthProvider = ({children}) => {
     
 
     const userEmailQueryData = (email) => {
-        // setLoading(true)
+        setLoading(true)
   // axios
     // .post(`http://localhost:5000/users?email=${event?.email}`)
     fetch(`http://localhost:5000/users?email=${email}`, {
