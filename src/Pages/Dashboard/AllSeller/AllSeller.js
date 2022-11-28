@@ -11,7 +11,7 @@ const AllSeller = () => {
     const {data:users = [], isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async()=> {
-           const res= await fetch(`http://localhost:5000/users`)
+           const res= await fetch(`https://server-git-sujon.vercel.app/sellers?accountType=Seller`)
            const data = await res.json()
            return data
         }
@@ -19,7 +19,7 @@ const AllSeller = () => {
     console.log(users);
 
     const varifingHandler = (user) => {
-        fetch(`http://localhost:5000/users/${user?._id}`, {
+        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -38,18 +38,33 @@ const AllSeller = () => {
           }
           setToggle(!toggle);
           refetch();
+
+        //   fetch(`https://server-git-sujon.vercel.app/products?isVerified=isVerified`,{
+        //     method: 'GET',
+        //     headers: {
+        //         "content-type": "application/json",
+        //       },
+        //     //   body: JSON.stringify({ isVerified: toggle }),
+        //   })
+        //   .then((res) => res.json())
+        //   .then((data) =>{
+        //     console.log(data)
+            
+        //   })
+       
         }
       });
     }
 
     const deleteUserHndler = (user) => {
-        fetch(`http://localhost:5000/users/${user?._id}`, {
+        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
             method: "DELETE",
             
         })
         .then(res=> res.json())
         .then(data => {
             console.log(data)
+            refetch()
         })
     }
 

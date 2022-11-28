@@ -7,7 +7,6 @@ import BlogDetails from '../Pages/Blog/BlogDetails/BlogDetails';
 import MyOrders from '../Pages/Buyer/MyOrders';
 import AllBuyers from '../Pages/Dashboard/AllBuyers/AllBuyers';
 import AllSeller from '../Pages/Dashboard/AllSeller/AllSeller';
-import Dashboard from '../Pages/Dashboard/Dashboard';
 import Payment from '../Pages/Dashboard/Payment/Payment';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
@@ -30,17 +29,17 @@ const Routes =  createBrowserRouter([
                 {
                     path:'category/:id',
                     element:<Products></Products>,
-                    loader:({params})=> fetch(`http://localhost:5000/catagories/${params.id}`)
+                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/catagories/${params.id}`)
                 },
                 {
                     path:'blog',
                     element:<Blog></Blog>,
-                    loader:()=> fetch(`http://localhost:5000/blogs`)
+                    loader:()=> fetch(`https://server-git-sujon.vercel.app/blogs`)
                 },
                 {
                     path:'blog/:id',
                     element:<BlogDetails></BlogDetails>,
-                    loader:({params})=> fetch(`http://localhost:5000/blogs/${params.id}`)
+                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/blogs/${params.id}`)
                 },
            
                 {
@@ -56,7 +55,7 @@ const Routes =  createBrowserRouter([
                 {
                     path: '/payment/:id',
                     element:<Payment></Payment>,
-                    loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
+                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/bookings/${params.id}`)
                 },
                 {
                     path:'/dashboard',

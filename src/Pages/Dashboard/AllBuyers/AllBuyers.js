@@ -1,18 +1,76 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import Spinner from '../../Shared/Spinner/Spinner';
 
 const AllBuyers = () => {
-
+    const [toggle, setToggle] = useState(true);
     const {data:users = [], isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async()=> {
-           const res= await fetch(`http://localhost:5000/users`)
+            const res= await fetch(`https://server-git-sujon.vercel.app/Buyers?accountType=Buyer`)
            const data = await res.json()
            return data
         }
     })
-    console.log(users)
+    console.log(users);
+   
+    const varifingHandler = (user) => {
+        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({ isVerified: toggle }),
+            
+        })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          {
+            user?.isVerified?.isVerified
+              ? toast.error(`Verify Undone`)
+              : toast.success(`User Verified `);
+          }
+          setToggle(!toggle);
+          refetch();
+
+        //   fetch(`https://server-git-sujon.vercel.app/products?isVerified=isVerified`,{
+        //     method: 'GET',
+        //     headers: {
+        //         "content-type": "application/json",
+        //       },
+        //     //   body: JSON.stringify({ isVerified: toggle }),
+        //   })
+        //   .then((res) => res.json())
+        //   .then((data) =>{
+        //     console.log(data)
+            
+        //   })
+       
+        }
+      });
+    }
+
+    const deleteUserHndler = (user) => {
+        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
+            method: "DELETE",
+            
+        })
+        .then(res=> res.json())
+        .then(data => {
+            console.log(data)
+            refetch()
+        })
+    }
+
+    if(isLoading){
+        return <Spinner></Spinner>
+    }
+
+
 
     return (
         <div>
@@ -55,7 +113,7 @@ const AllBuyers = () => {
              <p className="text-neutral text-sm font-semibold flex items-center justify-between w-1/2">
                 {
                     //   
-                    (user?.isVerified ?
+                    (user?.isVerified?.isVerified ?
                         <>{<>{'Verified'} <CheckBadgeIcon className="h-5 w-5 ml-2 text-blue-500"></CheckBadgeIcon></>}</> 
                         :
                         
@@ -68,7 +126,7 @@ const AllBuyers = () => {
          
            <td className="flex items-center justify-center ">
            <button 
-               // onClick={() => payNowHandler(user)}
+               onClick={() => varifingHandler(user)}
                className="btn btn-neutral btn-md hover:btn-primary text-center  text-white font-semibold"
              >
                 Make Verified
@@ -76,7 +134,7 @@ const AllBuyers = () => {
            </td>
            <td className="text-center">
              <button 
-               // onClick={() => payNowHandler(user)}
+               onClick={() => deleteUserHndler(user)}
                className="btn btn-neutral btn-md  hover:btn-primary text-white font-semibold"
              >
                Delete

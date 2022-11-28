@@ -7,6 +7,7 @@ import { AuthContext } from "../../Contexts/AuthProvider";
 import Spinner from "../Shared/Spinner/Spinner";
 import logo from "../../Resource/Logo/Indirect-accent.png";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddProducts = () => {
   const {
@@ -18,6 +19,7 @@ const AddProducts = () => {
 
   const { user, userEmailQueryData, emailData, ImageHosting, hostedPhotoUrl } =
     useContext(AuthContext);
+    const navigate = useNavigate()
 
   const productInfoWithText = ["Property_Name", "Location"];
 
@@ -54,26 +56,27 @@ const AddProducts = () => {
     userEmailQueryData(user?.email);
   }, [user?.email]);
 
-  const { data: catagories = [], isLoading } = useQuery({
+  const { data: catagories = [], isLoading , refetch } = useQuery({
     queryKey: ["catagories"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/catagories`);
+      const res = await fetch(`https://server-git-sujon.vercel.app/catagories`);
       const data = await res.json();
       return data;
     },
   });
-  if (!user && isLoading && !emailData) {
-    return <Spinner></Spinner>;
+  if (!user && isLoading && !emailData && !catagories) {
+    return <Spinner></Spinner>
   }
 
   const addProductsHandler = (event) => {
-    ImageHosting(event.productPhoto[0]);
+    
+    
 
     const productInfo = {
       Property_Name: event.Property_Name,
       Location: event.Location,
       productPhoto: hostedPhotoUrl,
-      sellerName: event.sellerName,
+      sellerName: event?.sellerName,
       Phone_Number: event.Phone_Number,
       Total_Size_Sqr_Feet: event.Total_Size_Sqr_Feet,
       Selling_Price: event.Selling_Price,
@@ -95,21 +98,24 @@ const AddProducts = () => {
       Garden: event.Garden,
       Solar_Panels: event.Solar_Panels,
       InterCom: event.InterCom,
-      category: event.category,
+      category: event?.category,
       condition: event.condition,
       productDescription: event.productDescription,
       isSold: false,
       isAdvertized: false,
       isBooked: false,
       isVerified:false,
-      email:emailData.email,
-      sellerID: emailData._id,
-      accountType:emailData.accountType,
+      email:emailData?.email,
+      sellerID: emailData?._id,
+      accountType:emailData?.accountType,
    
     };
 
+    if(event?.productPhoto[0]){
+      ImageHosting(event?.productPhoto[0]);
+    }
     if (hostedPhotoUrl) {
-      fetch(`http://localhost:5000/products`, {
+      fetch(`https://server-git-sujon.vercel.app/products`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -121,9 +127,13 @@ const AddProducts = () => {
           console.log(data);
           if (data.acknowledged) {
             toast.success("Product Added");
+            navigate('/dashboard')
+         
           }
         });
     }
+
+
   };
 
   return (
@@ -180,13 +190,17 @@ const AddProducts = () => {
                 <input
                   className="text-sm cursor-pointer  hidden"
                   type="file"
-                  {...register("productPhoto")}
+                  {...register("productPhoto", { required: "Please Upload a Photo" })}
+               
                 />
                 <div className="text bg-neutral text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-secondary">
                   Select Photo
+                 
                 </div>
+                
               </label>
             </div>
+           
           </div>
 
           <div>
@@ -217,8 +231,8 @@ const AddProducts = () => {
               <input
                 {...register("Phone_Number")}
                 required
-                defaultValue={emailData?.name}
-                readOnly
+                
+               
                 type="text"
                 className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
@@ -278,10 +292,11 @@ const AddProducts = () => {
           <select
             {...register(`category`)}
             className="select select-success w-full max-w-xs"
+            required
           >
-            {catagories?.map((category) => (
-              <option key={category._id} value={category.catagoriesName}>
-                {category?.catagoriesName}
+            {catagories && catagories?.map((category) => (
+              <option key={category?._id} value={category?.catagoriesName}>
+                {category && category?.catagoriesName}
               </option>
             ))}
           </select>
@@ -519,7 +534,9 @@ const AddProducts = () => {
             Save
           </button>
         </div>
+        <p className="text-error text-center">{errors?.productPhoto?.message}</p>
       </form>
+      
     </section>
   );
 };

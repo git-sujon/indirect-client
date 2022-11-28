@@ -2,7 +2,7 @@ import React from 'react';
 import toast from 'react-hot-toast';
 
 const CreateUsers = (userInfo) => {
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://server-git-sujon.vercel.app/users`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
