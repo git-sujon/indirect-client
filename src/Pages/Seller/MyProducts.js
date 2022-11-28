@@ -49,7 +49,7 @@ const MyProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.matchedCount > 0) {
+        if (data.modifiedCount > 0) {
           {
             product?.isAdvertized?.isAdvertized
               ? toast.error(`Your AD is Stop`)
@@ -83,7 +83,7 @@ const MyProducts = () => {
             {/* <!-- row 1 --> */}
 
             {products.map((product) => (
-              <tr key={product._id}>
+              <tr className="" key={product._id}>
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
@@ -110,7 +110,7 @@ const MyProducts = () => {
                 <td className="text-neutral text-sm font-semibold">
                   ${product?.Selling_Price}
                 </td>
-                <td className="flex items-center  relative">
+                <td className="flex  relative ">
                   <button
                     onClick={() => makeAdvertizedHandler(product)}
                     className="btn btn-accent btn-xs "
@@ -119,7 +119,7 @@ const MyProducts = () => {
                   </button>{" "}
                   {product?.isAdvertized?.isAdvertized && (
                     <div className="">
-                      <span class="absolute top-5 right-10 z-20 flex  h-8 w-8">
+                      <span class="absolute top-4 right-[-2px]  flex  h-8 w-8">
                         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
                         <span class="relative inline-flex h-5 w-5 rounded-full bg-green-500"></span>
                       </span>

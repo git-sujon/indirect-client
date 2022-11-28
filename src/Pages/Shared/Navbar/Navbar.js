@@ -33,7 +33,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
       </li>
 
-      <li className="relative bg-primary " tabIndex={1}>
+      <li className="bg-primary " tabIndex={1}>
         <Link className="bg-primary justify-between">
           Catagories
           <svg
@@ -46,7 +46,7 @@ const Navbar = () => {
             <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
           </svg>
         </Link>
-        <ul className=" bg-primary p-2 ">
+        <ul className=" bg-primary p-2 " style={{zIndex:"1000"}}>
           {catagories?.map((category) => (
             <li key={category?._id}>
               <Link to={`/category/${category?._id}`}>{category?.catagoriesName}</Link>
@@ -55,30 +55,25 @@ const Navbar = () => {
         </ul>
       </li>
 
-      <li>
-        <Link to="/addProducts">Add Products</Link>
-      </li>
-      <li>
-        <Link to="/myProducts">My Products</Link>
-      </li>
-      <li>
-        <Link to="/myOrders">My Orders</Link>
-      </li>
+     
+   
+     
       <li>
         <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <Link to="">FAQ</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
+      
     </>
   );
 
   return (
-    <div className="">
+ 
       <div className="navbar bg-primary text-white font-bold">
         <div className="navbar-start">
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <label tabIndex={2} className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -95,7 +90,7 @@ const Navbar = () => {
               </svg>
             </label>
             <ul
-              tabIndex={0}
+              tabIndex={3}
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary rounded-box w-52"
             >
               {/* mobile menus */}
@@ -112,6 +107,7 @@ const Navbar = () => {
             {/* desktop menus  */}
             {menus}
           </ul>
+
         </div>
         <div className="navbar-end">
          {
@@ -122,8 +118,28 @@ const Navbar = () => {
            <Link to='/login' className="btn text-white">Login</Link>
          }
         </div>
+
+
+        <label   htmlFor="dashboardOpen" tabIndex={5} className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </label>
       </div>
-    </div>
+
+    
+
   );
 };
 

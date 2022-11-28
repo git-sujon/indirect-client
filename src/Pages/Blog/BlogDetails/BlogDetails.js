@@ -5,10 +5,11 @@ import { useLoaderData } from "react-router-dom";
 const BlogDetails = () => {
   const blogDetaills = useLoaderData();
   console.log(blogDetaills)
-  const { _id, img, question, CATEGORY, ans_p_one, cover_img, ans_p_two } =
+  const { _id, img, question, CATEGORY, ans_p_one, cover_img, ans_p_two , Timestamp} =
     blogDetaills;
     // UseTitle(`Blog- ${question}`)
-
+    const dateTime = new Date(Timestamp);
+    const postTime = dateTime?.toLocaleString()?.split(",")[0];
   return (
     <div>
       <div className="max-w-screen-xl mx-auto">
@@ -26,7 +27,7 @@ const BlogDetails = () => {
             <div className="p-4">
               <p
                 
-                className="px-4 py-1 bg-black text-gray-200 inline-flex items-center justify-center mb-2"
+                className="px-4 py-1 bg-neutral text-white font-bold inline-flex items-center justify-center mb-2"
               >
                 {CATEGORY}
               </p>
@@ -37,11 +38,11 @@ const BlogDetails = () => {
                 <img
                   src="https://randomuser.me/api/portraits/men/97.jpg" className="h-10 w-10 rounded-full mr-2 object-cover" alt=""/>
                 <div>
-                  <p className="font-semibold text-gray-200 text-sm">
+                  <p className="font-semibold text-gray-700   text-sm">
                     {" "}
                     Mike Sullivan{" "}
                   </p>
-                  <p className="font-semibold text-gray-400 text-xs"> 27 Oct </p>
+                  <p className="font-semibold text-gray-400 text-xs"> {postTime} </p>
                 </div>
               </div>
             </div>

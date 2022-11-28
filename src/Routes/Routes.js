@@ -1,9 +1,13 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import DashboardLayout from '../Layout/DashboardLayout';
 import Main from '../Layout/Main';
 import Blog from '../Pages/Blog/Blog';
 import BlogDetails from '../Pages/Blog/BlogDetails/BlogDetails';
 import MyOrders from '../Pages/Buyer/MyOrders';
+import AllBuyers from '../Pages/Dashboard/AllBuyers/AllBuyers';
+import AllSeller from '../Pages/Dashboard/AllSeller/AllSeller';
+import Dashboard from '../Pages/Dashboard/Dashboard';
 import Payment from '../Pages/Dashboard/Payment/Payment';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import Home from '../Pages/Home/Home';
@@ -38,10 +42,7 @@ const Routes =  createBrowserRouter([
                     element:<BlogDetails></BlogDetails>,
                     loader:({params})=> fetch(`http://localhost:5000/blogs/${params.id}`)
                 },
-                {
-                    path:'/addProducts',
-                    element:<AddProducts></AddProducts>
-                },
+           
                 {
                     path:'/login',
                     element:<Login></Login>
@@ -50,21 +51,44 @@ const Routes =  createBrowserRouter([
                     path:'/Register',
                     element:<Register></Register>
                 },
-                {
-                    path:'/myProducts',
-                    element:<MyProducts></MyProducts>
-                },
-                {
-                    path: '/myOrders',
-                    element:<MyOrders></MyOrders>,
-                },
+              
+            
                 {
                     path: '/payment/:id',
                     element:<Payment></Payment>,
                     loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
+                },
+                {
+                    path:'/dashboard',
+                    element: <DashboardLayout></DashboardLayout>,
+                    children:[
+                        {
+                            path: '/dashboard',
+                            element:<MyProducts></MyProducts>
+                        },
+                        {
+                            path: '/dashboard/addProducts',
+                            element:<AddProducts></AddProducts>
+                        },
+                        {
+                            path: '/dashboard/myOrders',
+                            element:<MyOrders></MyOrders>
+                        },
+                        {
+                            path: '/dashboard/allSellers',
+                            element:<AllSeller></AllSeller>
+                        },
+                        {
+                            path: '/dashboard/allBuyers',
+                            element:<AllBuyers></AllBuyers>
+                        },
+                    ]
                 }
+               
+                
             ]
         }
+       
     ])
 
 

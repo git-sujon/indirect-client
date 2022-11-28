@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import logo from '../../../Resource/Logo/Indirect-accent.png'
 
 
 const Footer = () => {
+
+  const [catagories , setCatagories] =useState([])
+
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/catagories/`)
+    .then(res=> res.json())
+    .then((data) => {
+      setCatagories(data);
+    });
+  }, []);
+
     return (
         <div>
                 <footer className="footer p-10 bg-special text-accent">
   <div>
    <img className='w-64' src={logo} alt="" />
-    <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
+    <p className='max-w-sm'>Indirect is Buying and Selling Property website, We only focusing now on used property. This is the safest place for Sellers and Buyers to share their property.</p>
   </div> 
   <div>
-    <span className="footer-title">Services</span> 
-    <Link className="link link-hover">Branding</Link> 
-    <Link className="link link-hover">Design</Link> 
-    <Link className="link link-hover">Marketing</Link> 
-    <Link className="link link-hover">Advertisement</Link>
+    <span className="footer-title">Catagories</span> 
+    {
+      catagories.map(category => <Link to={`/category/${category?._id}`} key={category?._id} className="link link-hover">{category?.catagoriesName}</Link>)
+    } 
+
   </div> 
   <div>
     <span className="footer-title">Company</span> 

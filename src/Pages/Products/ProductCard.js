@@ -11,7 +11,10 @@ import {
 } from "@heroicons/react/24/solid";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
 
+
 const ProductCard = ({ product, setProduct }) => {
+// console.log(product)
+
 
   const {
     Property_Name,
@@ -48,6 +51,7 @@ const ProductCard = ({ product, setProduct }) => {
   } = product;
  
 
+// console.log(users)
 
 
   const dateTime = new Date(Timestamp);

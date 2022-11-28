@@ -7,7 +7,7 @@ import SubscribeCTA from './SubscribeCTA/SubscribeCTA';
 const Home = () => {
     return (
         <div>
-            {/* <HomeBanner></HomeBanner> */}
+            <HomeBanner></HomeBanner>
             <div className='container px-5 mx-auto'>
             <CatagoriesShowcase></CatagoriesShowcase>
             <Advertised></Advertised>
