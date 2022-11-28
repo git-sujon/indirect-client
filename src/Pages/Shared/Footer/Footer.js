@@ -9,7 +9,7 @@ const Footer = () => {
 
 
   useEffect(() => {
-    fetch(`https://server-git-sujon.vercel.app/catagories/`)
+    fetch(`http://localhost:5000/catagories/`)
     .then(res=> res.json())
     .then((data) => {
       setCatagories(data);

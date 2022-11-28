@@ -13,7 +13,7 @@ const MyOrders = () => {
         queryKey: ["bookings", user?.email],
         queryFn: async () => {
           const res = await fetch(
-            `https://server-git-sujon.vercel.app/bookings?buyerEmail=${user?.email}`
+            `http://localhost:5000/bookings?buyerEmail=${user?.email}`
           );
           const data = await res.json();
           return data;

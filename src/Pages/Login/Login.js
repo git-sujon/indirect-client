@@ -46,6 +46,11 @@ const Login = () => {
           .then((res) => {
             const user = res.user;
             toast.success("Login Complete");
+
+            navigate(from, { replace: true });
+
+
+
           })
           .catch((err) => {
             console.error(err);

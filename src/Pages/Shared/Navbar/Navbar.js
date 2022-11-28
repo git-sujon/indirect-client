@@ -18,8 +18,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // axios.get(`https://server-git-sujon.vercel.app/catagories/`).then((data) => {
-    fetch(`https://server-git-sujon.vercel.app/catagories/`)
+    // axios.get(`http://localhost:5000/catagories/`).then((data) => {
+    fetch(`http://localhost:5000/catagories/`)
     .then(res=> res.json())
     .then((data) => {
       // setCatagories(data.data);

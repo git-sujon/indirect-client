@@ -8,7 +8,7 @@ const CatagoriesShowcase = () => {
     const { data: catagories = [], isLoading } = useQuery({
         queryKey: ["catagories"],
         queryFn: async () => {
-          const res = await fetch(`https://server-git-sujon.vercel.app/catagories`);
+          const res = await fetch(`http://localhost:5000/catagories`);
           const data = await res.json();
           return data;
         },

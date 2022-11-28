@@ -15,6 +15,7 @@ import Products from '../Pages/Products/Products';
 import AddProducts from '../Pages/Seller/AddProducts';
 import MyProducts from '../Pages/Seller/MyProducts';
 import Register from '../Register/Register';
+import PrivateRoute from './PrivateRoute';
 
 const Routes =  createBrowserRouter([
         {
@@ -29,17 +30,17 @@ const Routes =  createBrowserRouter([
                 {
                     path:'category/:id',
                     element:<Products></Products>,
-                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/catagories/${params.id}`)
+                    loader:({params})=> fetch(`http://localhost:5000/catagories/${params.id}`)
                 },
                 {
                     path:'blog',
                     element:<Blog></Blog>,
-                    loader:()=> fetch(`https://server-git-sujon.vercel.app/blogs`)
+                    loader:()=> fetch(`http://localhost:5000/blogs`)
                 },
                 {
                     path:'blog/:id',
                     element:<BlogDetails></BlogDetails>,
-                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/blogs/${params.id}`)
+                    loader:({params})=> fetch(`http://localhost:5000/blogs/${params.id}`)
                 },
            
                 {
@@ -55,31 +56,31 @@ const Routes =  createBrowserRouter([
                 {
                     path: '/payment/:id',
                     element:<Payment></Payment>,
-                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/bookings/${params.id}`)
+                    loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
                 },
                 {
                     path:'/dashboard',
-                    element: <DashboardLayout></DashboardLayout>,
+                    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
                     children:[
                         {
                             path: '/dashboard',
-                            element:<MyProducts></MyProducts>
+                            element:<PrivateRoute><MyProducts></MyProducts></PrivateRoute>
                         },
                         {
                             path: '/dashboard/addProducts',
-                            element:<AddProducts></AddProducts>
+                            element:<PrivateRoute><AddProducts></AddProducts></PrivateRoute>
                         },
                         {
                             path: '/dashboard/myOrders',
-                            element:<MyOrders></MyOrders>
+                            element:<PrivateRoute><MyOrders></MyOrders></PrivateRoute>
                         },
                         {
                             path: '/dashboard/allSellers',
-                            element:<AllSeller></AllSeller>
+                            element:<PrivateRoute><AllSeller></AllSeller></PrivateRoute>
                         },
                         {
                             path: '/dashboard/allBuyers',
-                            element:<AllBuyers></AllBuyers>
+                            element:<PrivateRoute><AllBuyers></AllBuyers></PrivateRoute>
                         },
                     ]
                 }

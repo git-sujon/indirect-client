@@ -50,8 +50,8 @@ const AuthProvider = ({children}) => {
     const userEmailQueryData = (email) => {
         setLoading(true)
   // axios
-    // .post(`https://server-git-sujon.vercel.app/users?email=${event?.email}`)
-    fetch(`https://server-git-sujon.vercel.app/users?email=${email}`, {
+    // .post(`http://localhost:5000/users?email=${event?.email}`)
+    fetch(`http://localhost:5000/users?email=${email}`, {
       method: "GET",
       // headers: {
       //   "content-type": "application/json",

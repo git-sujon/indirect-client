@@ -59,7 +59,7 @@ const AddProducts = () => {
   const { data: catagories = [], isLoading , refetch } = useQuery({
     queryKey: ["catagories"],
     queryFn: async () => {
-      const res = await fetch(`https://server-git-sujon.vercel.app/catagories`);
+      const res = await fetch(`http://localhost:5000/catagories`);
       const data = await res.json();
       return data;
     },
@@ -75,7 +75,8 @@ const AddProducts = () => {
     const productInfo = {
       Property_Name: event.Property_Name,
       Location: event.Location,
-      productPhoto: hostedPhotoUrl,
+      // productPhoto: hostedPhotoUrl,
+      productPhoto: event.productPhoto,
       sellerName: event?.sellerName,
       Phone_Number: event.Phone_Number,
       Total_Size_Sqr_Feet: event.Total_Size_Sqr_Feet,
@@ -111,11 +112,11 @@ const AddProducts = () => {
    
     };
 
-    if(event?.productPhoto[0]){
-      ImageHosting(event?.productPhoto[0]);
-    }
-    if (hostedPhotoUrl) {
-      fetch(`https://server-git-sujon.vercel.app/products`, {
+    // if(event?.productPhoto[0]){
+    //   ImageHosting(event?.productPhoto[0]);
+    // }
+    // if (hostedPhotoUrl) {
+      fetch(`http://localhost:5000/products`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -131,7 +132,7 @@ const AddProducts = () => {
          
           }
         });
-    }
+    // }
 
 
   };
@@ -169,7 +170,7 @@ const AddProducts = () => {
         {/* .................... */}
         {/* image file and others  */}
 
-        <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
+        {/* <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
           <div className="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
             <svg
               className="text-neutral  w-16 mx-auto mb-4"
@@ -238,7 +239,24 @@ const AddProducts = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
+
+<div>
+              <label
+                className="text-gray-700 dark:text-gray-900"
+                htmlFor="username"
+              >
+                Enter ProductPhoto Url
+              </label>
+              <input
+                {...register("productPhoto")}
+                required
+               
+         
+                type="text"
+                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              />
+            </div>
 
         {/* ................. */}
         {/* ................. Number BASED  */}

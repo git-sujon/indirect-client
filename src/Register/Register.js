@@ -62,6 +62,8 @@ const Register = () => {
             event.password,
             event.accountType
           );
+
+          navigate(from, { replace: true });
       })
       .catch((err) => {
         console.error(err);
