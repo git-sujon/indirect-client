@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import logo from '../../../Resource/Logo/Indirect-accent.png'
@@ -5,16 +7,16 @@ import logo from '../../../Resource/Logo/Indirect-accent.png'
 
 const Footer = () => {
 
-  const [catagories , setCatagories] =useState([])
+ 
 
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/catagories/`)
-    .then(res=> res.json())
-    .then((data) => {
-      setCatagories(data);
-    });
-  }, []);
+  const {data:catagories = [] , isLoading} = useQuery({
+    queryKey:['catagories'],
+    queryFn: ()=>{
+      const data = axios.get(`http://localhost:5000/catagories`)
+      return data
+    }
+  })
 
     return (
         <div>
@@ -26,7 +28,7 @@ const Footer = () => {
   <div>
     <span className="footer-title">Catagories</span> 
     {
-      catagories.map(category => <Link to={`/category/${category?._id}`} key={category?._id} className="link link-hover">{category?.catagoriesName}</Link>)
+      catagories?.data?.map(category => <Link to={`/category/${category?._id}`} key={category?._id} className="link link-hover">{category?.catagoriesName}</Link>)
     } 
 
   </div> 

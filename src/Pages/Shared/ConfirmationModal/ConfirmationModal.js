@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ConfirmationModal = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
 
     formState: { errors },
   } = useForm();
-
+  const navigate = useNavigate();
   const confirmationModalHandler = (event) => {
     
     const booking = {
@@ -49,6 +50,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
         if(data.acknowledged){
             toast.success("Booking Done")
             setBooking(booking)
+            navigate('/dashboard/myOrders')
         }
     })
 
@@ -117,7 +119,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
                 <div className="flex justify-between gap-3">
                   <span className="w-1/2">
                     <label
-                      for="firstname"
+                      htmlFor="firstname"
                       className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                     >
                       <UserIcon className="w-5 mr-2"></UserIcon>Your Name
@@ -135,7 +137,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
                   </span>
                   <span className="w-1/2">
                     <label
-                      for="lastname"
+                      htmlFor="lastname"
                       className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                     >
                       <PhoneIcon className="w-5 mr-2"></PhoneIcon> Your Phone
@@ -150,7 +152,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
                   </span>
                 </div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="flex items-center mt-2 text-xs font-semibold text-gray-600 uppercase"
                 >
                   <EnvelopeIcon className="w-5 mr-2"></EnvelopeIcon> Your Email
@@ -167,7 +169,7 @@ const ConfirmationModal = ({ product, setBooking }) => {
                 />
 
                 <label
-                  for="text"
+                  htmlFor="text"
                   className=" mt-2 text-xs font-semibold text-gray-600 uppercase flex items-center"
                 >
                   <MapPinIcon className="w-5 mr-2"></MapPinIcon> Metring

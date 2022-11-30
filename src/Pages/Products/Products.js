@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import ConfirmationModal from '../Shared/ConfirmationModal/ConfirmationModal';
 import Spinner from '../Shared/Spinner/Spinner';
 import ProductCard from './ProductCard';
 
 const Products = () => {
     const category= useLoaderData()
+
+    
     const [product, setProduct] = useState()
     const [booking, setBooking] = useState(null)
     
-   
+  
     
     const { data: products = [], isLoading } = useQuery({
         queryKey: ["products", category?.catagoriesName],
@@ -21,6 +23,12 @@ const Products = () => {
         },
       });
      
+      const navigation = useNavigation();
+      if (navigation.state === "loading") {
+        return <Spinner></Spinner>;
+      }
+     
+
       if(isLoading){
         <Spinner></Spinner>
     }

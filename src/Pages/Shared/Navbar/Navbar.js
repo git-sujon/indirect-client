@@ -19,21 +19,12 @@ const Navbar = () => {
       .catch((err) => console.error(err));
   };
 
-  // useEffect(() => {
-  //   //
-  //   fetch(`http://localhost:5000/catagories/`)
-  //   .then(res=> res.json())
-  //   .then((data) => {
-  //     // setCatagories(data.data);
-  //     setCatagories(data);
-  //   });
-  // }, []);
-
+ 
 
   const {data:catagories = [] , isLoading} = useQuery({
     queryKey:['catagories'],
     queryFn: ()=>{
-      const data = axios.get(`http://localhost:5000/catagories/`)
+      const data = axios.get(`http://localhost:5000/catagories`)
       return data
     }
   })

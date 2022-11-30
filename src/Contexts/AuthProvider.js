@@ -49,14 +49,10 @@ const AuthProvider = ({children}) => {
 
     const userEmailQueryData = (email) => {
        
-  // axios
-    // .post(`http://localhost:5000/users?email=${event?.email}`)
+  
     fetch(`http://localhost:5000/users?email=${email}`, {
       method: "GET",
-      // headers: {
-      //   "content-type": "application/json",
-      // authorization: `bearer ${localStorage.setItem('IndirectToken')}`
-      // },
+      
     })
     .then((res) => res.json())
     .then((data) => {

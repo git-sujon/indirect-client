@@ -1,7 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
 
+
+
+
+
+
 const CreateUsers = (userInfo) => {
+
     fetch(`http://localhost:5000/users`, {
         method: "POST",
         headers: {
@@ -14,7 +21,8 @@ const CreateUsers = (userInfo) => {
         .then((data) => {
           toast.success("User Login");
           // setCreatedUseremail(email);
-        
+          window.location.reload(true);
+            
         });
 };
 

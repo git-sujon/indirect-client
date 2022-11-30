@@ -14,7 +14,7 @@ const AllBuyers = () => {
            return data
         }
     })
-    console.log(users);
+  
    
     const varifingHandler = (user) => {
         fetch(`http://localhost:5000/users/${user?._id}`, {

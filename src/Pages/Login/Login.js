@@ -8,6 +8,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import UseToken from "../../Hooks/UseToken";
 import loginImage from "../../Resource/Images/lgoinImage.png";
+import CreateUsers from "../Shared/CreateUsers/CreateUsers";
+
 
 const Login = () => {
   const {
@@ -17,7 +19,7 @@ const Login = () => {
     reset,
   } = useForm();
 
-  const { userLogin, logInWithPrvider,userEmailQueryData, emailData } = useContext(AuthContext);
+  const { userLogin, logInWithPrvider, emailData ,  userSignUp, userProfileUpdate, loading,  userEmailQueryData, ImageHosting, hostedPhotoUrl} = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const [loginError, setLoginError] = useState("");
 
@@ -36,7 +38,7 @@ const Login = () => {
   const handlerForm = (event) => {
       userEmailQueryData(event?.email)
 
-       
+    
   
 
     if (emailData?.accountType) {
@@ -61,20 +63,93 @@ const Login = () => {
         toast.error(`You are not a ${event.accountType}`)
       }
     }
+    else{
+      toast.error('Check Buyer Or a Seller')
+    }
+
+   
    
   };
 
   const googleHandler = () => {
     logInWithPrvider(googleProvider)
       .then((res) => {
-        const user = res.user;
-        console.log(user.email);
+        const user = res?.user;
+
+        // check if the user exist
+
+        
+        userEmailQueryData(user?.email)
+        
+            if( emailData !== user?.email){
+              storingUsers(
+                user?.displayName,
+                user?.photoURL,
+                (user.photoFile = false),
+                user?.email,
+                (user.password = "googleLogin"),
+                (user.accountType = "Buyer")
+              );
+              navigate(from, { replace: true });
+          } 
+
+          
+     
       })
       .catch((err) => {
         console.error(err);
         setLoginError(err.message);
       });
   };
+
+
+  
+
+  const storingUsers = (
+    name,
+    photoURL,
+    photoFile,
+    email,
+    password,
+    accountType
+  ) => {
+    
+
+    // photo Uplode
+    // const formData = new FormData();
+    // const image = photoFile[0];
+    // formData.append("image", image);
+    // const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_image_host_API}`;
+    // fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // })
+
+    const photoFilePath=photoFile[0] 
+    ImageHosting(photoFilePath)
+  
+
+    let photo;
+    photoURL ? (photo = photoURL) : (photo = hostedPhotoUrl);
+
+        const userInfo = {
+          name,
+          photo,
+          email,
+          password,
+          accountType,
+          isVerified: false,
+          isAdmin: false,
+        };
+
+      
+
+        CreateUsers(userInfo);
+   
+  };
+
+
+
 
   return (
     <div className="my-32 px-10 ">

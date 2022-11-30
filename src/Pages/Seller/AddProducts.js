@@ -8,6 +8,7 @@ import Spinner from "../Shared/Spinner/Spinner";
 import logo from "../../Resource/Logo/Indirect-accent.png";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddProducts = () => {
   const {
@@ -16,6 +17,12 @@ const AddProducts = () => {
 
     formState: { errors },
   } = useForm();
+  
+
+  if(errors?.Selling_Price?.message){
+    toast.error("Please FillUp Required Fields")
+  }
+
 
   const { user, userEmailQueryData, emailData, ImageHosting, hostedPhotoUrl } =
     useContext(AuthContext);
@@ -56,18 +63,16 @@ const AddProducts = () => {
     userEmailQueryData(user?.email);
   }, [user?.email]);
 
-  const {
-    data: catagories = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["catagories"],
-    queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/catagories`);
-      const data = await res.json();
-      return data;
-    },
-  });
+  const {data:catagories = [] , isLoading} = useQuery({
+    queryKey:['catagories'],
+    queryFn: ()=>{
+      const data = axios.get(`http://localhost:5000/catagories`)
+      return data
+    }
+  })
+
+
+
   if (!user && isLoading && !emailData && !catagories) {
     return <Spinner></Spinner>;
   }
@@ -259,11 +264,12 @@ const AddProducts = () => {
               <label
                 className="text-gray-700 dark:text-gray-900"
                 htmlFor="username"
+                
               >
                 {name}
               </label>
               <input
-                {...register(`${name}`)}
+                {...register(`${name}`, { required: "THis Field is required" })}
                 type="number"
                 className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               />
@@ -305,8 +311,8 @@ const AddProducts = () => {
             className="select select-success w-full max-w-xs"
             required
           >
-            {catagories  &&
-              catagories?.map((category) => (
+            {
+             catagories?.data?.map((category) => (
                 <option key={category?._id} value={category?.catagoriesName}  >
                   {category && category?.catagoriesName}
                 </option>
@@ -350,9 +356,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -367,9 +373,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -384,9 +390,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -401,9 +407,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -418,9 +424,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -437,9 +443,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -454,9 +460,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -471,9 +477,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -488,9 +494,9 @@ const AddProducts = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>
@@ -508,9 +514,9 @@ const AddProducts = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </button>
@@ -524,7 +530,7 @@ const AddProducts = () => {
             </div>
           </div>
           <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-secondary">
-            <label for="editor" className="sr-only">
+            <label htmlFor="editor" className="sr-only">
               Write full Description
             </label>
             <textarea

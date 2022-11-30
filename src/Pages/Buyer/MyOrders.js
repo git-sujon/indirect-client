@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 
@@ -20,6 +21,20 @@ const MyOrders = () => {
     },
   });
 
+
+  const deleteHandler = (booking) => {
+    
+    fetch(`http://localhost:5000/bookings/${booking._id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success(`Booking Deleted`);
+        refetch();
+      });
+  };
+
   //       const dateTime = new Date(Timestamp);
   //   const dividingTime = dateTime?.toLocaleString()?.split(":");
   //   const showingTime =
@@ -39,10 +54,12 @@ const MyOrders = () => {
           <thead className="bg-neutral">
             <tr>
               <th>Property</th>
-              <th>Seller information's</th>
+        
               {/* <th>Booking Time</th> */}
               <th>Price</th>
+              <th>Payment Status</th>
               <th>Pay Now</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -68,24 +85,41 @@ const MyOrders = () => {
                     </div>
                   </div>
                 </td>
-                <td>
-                  <p className="text-neutral text-sm font-semibold">
-                    {booking?.sellerName}
-                  </p>
-                  <p className="text-sm">{booking.Phone_Number}</p>
-                </td>
+               
                 {/* <td className="text-neutral text-sm font-semibold">
                   {booking?.Timestamp}
                 </td> */}
-                <td className="flex items-center">${booking?.productPrice}</td>
+                <td className="">${booking?.productPrice}</td>
+                <td>{booking?.paid ? 'Paid' : 'Not Paid'}</td>
+
                 <td>
-                  <Link
-                    to={`/dashboard/payment/${booking._id}`}
+                  {
+                    !booking?.paid ?
+
+                    <Link
+                    to={`/dashboard/payment/${booking?._id}`}
+                    
                     // onClick={() => payNowHandler(booking)}
-                    className="btn btn-neutral  hover:btn-primary text-white font-semibold"
+                    className="btn btn-neutral  hover:btn-primary btn-xs text-white font-semibold"
                   >
                     Pay Now
                   </Link>
+                  :
+                  <button disabled className="btn btn-neutral btn-xs hover:btn-primary text-white font-semibold" >Pay Now</button>
+
+
+                  }
+                  
+                </td>
+
+                <td>
+                <button
+                    onClick={() => deleteHandler(booking)}
+                    
+                    className="btn btn-warning btn-xs"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

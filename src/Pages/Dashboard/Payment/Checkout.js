@@ -2,6 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = ({ bookingData }) => {
   const [cardError, setCardError] = useState('');
@@ -9,10 +11,21 @@ const Checkout = ({ bookingData }) => {
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState("");
+    const navigate = useNavigate()
 
     const stripe = useStripe();
     const elements = useElements();
-    const { productPrice, buyerEmail, buyerName, _id } = bookingData;
+    const { productPrice, buyerEmail, buyerName, _id , productId} = bookingData;
+  let price= parseInt(productPrice)
+ 
+    if(price > 100 ) {
+        price= 50
+    }
+    else{
+     
+        price = price +1
+    }
+  
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -20,13 +33,13 @@ const Checkout = ({ bookingData }) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
+                // authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify({ productPrice }),
+            body: JSON.stringify({ price }),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-    }, [productPrice]);
+    }, [price]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -75,16 +88,16 @@ const Checkout = ({ bookingData }) => {
             console.log('card info', card);
             // store payment info in the database
             const payment = {
-                productPrice,
+                price,
                 transactionId: paymentIntent.id,
                 buyerEmail,
                 bookingId: _id
             }
-            fetch('https://doctors-portal-server-rust.vercel.app/payments', {
+            fetch('http://localhost:5000/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    // authorization: `bearer ${localStorage.getItem('accessToken')}`
                 },
                 body: JSON.stringify(payment)
             })
@@ -94,11 +107,29 @@ const Checkout = ({ bookingData }) => {
                     if (data.insertedId) {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
+                       
+                        deleteOrginalProduct(productId)
+                  
                     }
                 })
         }
         setProcessing(false);
 
+        const deleteOrginalProduct = (productId) => {
+            fetch(`http://localhost:5000/products/${productId}`, {
+                method: "DELETE",
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                  if(data.deletedCount > 0){
+                    toast.success("Payment Complete")
+                    navigate('/dashboard/myOrders')
+                  }
+                 
+                  
+                });
+        }
 
     }
 
@@ -124,7 +155,7 @@ const Checkout = ({ bookingData }) => {
         <button
             className='btn btn-sm mt-4 btn-primary'
             type="submit"
-            disabled={!stripe || !clientSecret || processing}>
+            disabled={!stripe }>
             Pay
         </button>
     </form>

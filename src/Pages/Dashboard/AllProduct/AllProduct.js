@@ -25,7 +25,7 @@ const AllProduct = () => {
   });
 
   const deleteHandler = (product) => {
-    console.log(product);
+
     fetch(`http://localhost:5000/products/${product._id}`, {
       method: "DELETE",
     })
@@ -120,9 +120,9 @@ const AllProduct = () => {
                   </button>{" "}
                   {product?.isAdvertized?.isAdvertized && (
                     <div className="">
-                      <span class="absolute top-4 right-[-2px]  flex  h-8 w-8">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex h-5 w-5 rounded-full bg-green-500"></span>
+                      <span className="absolute top-4 right-[-2px]  flex  h-8 w-8">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex h-5 w-5 rounded-full bg-green-500"></span>
                       </span>
                     </div>
                   )}

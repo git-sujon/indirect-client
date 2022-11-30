@@ -8,12 +8,12 @@ import UseToken from "../Hooks/UseToken";
 import Spinner from "../Pages/Shared/Spinner/Spinner";
 import CreateUsers from "../Pages/Shared/CreateUsers/CreateUsers";
 import signUpImage from "../Resource/Images/Sign-up-amico.png";
+import { useQuery } from "@tanstack/react-query";
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathName || "/";
-  const [createdUseremail, setCreatedUseremail] = useState("");
   // const [token]= UseToken(createdUseremail)
   const [photoUploadUrl, setPhotoUploadUrl] = useState("");
   const [userEmail, setUserEmail] = useState('')
@@ -33,12 +33,18 @@ const Register = () => {
 
   const { logInWithPrvider, userSignUp, userProfileUpdate, loading,  userEmailQueryData,  emailData, ImageHosting, hostedPhotoUrl } =
     useContext(AuthContext);
+
   const googleProvider = new GoogleAuthProvider();
   const [loginError, setLoginError] = useState("");
 
   // Register handler Start
 
   // register neew user
+
+ 
+
+
+
   const registerHandler = (event) => {
     const userInfo = {
       displayName: event.name,
@@ -57,13 +63,13 @@ const Register = () => {
           storingUsers(
             event.name,
             event?.photoURL,
-            event?.photoFile,
+          
             event.email,
             event.password,
             event.accountType
           );
 
-          navigate(from, { replace: true });
+          
       })
       .catch((err) => {
         console.error(err);
@@ -75,7 +81,7 @@ const Register = () => {
   const storingUsers = (
     name,
     photoURL,
-    photoFile,
+  
     email,
     password,
     accountType
@@ -92,8 +98,8 @@ const Register = () => {
     //   body: formData,
     // })
 
-    const photoFilePath=photoFile[0] 
-    ImageHosting(photoFilePath)
+    // const photoFilePath=photoFile[0] 
+    // ImageHosting(photoFilePath)
   
 
     let photo;
@@ -122,9 +128,15 @@ const Register = () => {
 
         // check if the user exist
 
+        if(user){
+          userEmailQueryData(user?.email)
+        }
+
         
-        userEmailQueryData(user?.email)
         
+       
+
+
             if( emailData !== user?.email){
               storingUsers(
                 user?.displayName,
@@ -134,6 +146,7 @@ const Register = () => {
                 (user.password = "googleLogin"),
                 (user.accountType = "Buyer")
               );
+              navigate(from, { replace: true });
           } 
      
       })
@@ -193,6 +206,7 @@ const Register = () => {
                   </label>
                   <input
                     type="file"
+                    disabled
                     {...register("photoFile")}
                     className="file-input file-input-bordered file-input-md file-input-accent w-full "
                   />

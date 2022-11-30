@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { data } from 'autoprefixer';
 import axios from 'axios';
 import React from 'react';
+import Spinner from '../../Shared/Spinner/Spinner';
 import CatagoriesCard from '../CatagoriesCard/CatagoriesCard';
 
 const CatagoriesShowcase = () => {
@@ -10,13 +11,14 @@ const CatagoriesShowcase = () => {
     const {data:catagories = [] , isLoading} = useQuery({
         queryKey:['catagories'],
         queryFn: ()=>{
-          const data = axios.get(`http://localhost:5000/catagories/`)
+          const data = axios.get(`http://localhost:5000/catagories`)
           return data
         }
       })
 
-      console.log(catagories?.data);
-
+if(isLoading){
+    return <Spinner></Spinner>
+}
 
     return (
         <div className='my-20'>

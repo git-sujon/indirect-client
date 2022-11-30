@@ -7,8 +7,14 @@ const DashboardLayout = () => {
 
     const {userEmailQueryData, emailData, user} = useContext(AuthContext)
 
+ 
+
     useEffect(()=> {
+      if(user?.email){
         userEmailQueryData(user?.email)
+      }
+
+       
     }, [user?.email])
 
 
@@ -29,15 +35,15 @@ const DashboardLayout = () => {
             {/* <!-- Sidebar content here --> */}
 
             <div>
-            <div class="text-center mr-10    my-12">
+            <div className="text-center mr-10    my-12">
               <img
                 src={emailData?.photo}
-                class="rounded-full w-32 mb-4 mx-auto"
+                className="rounded-full w-32 mb-4 mx-auto"
                 alt="Avatar"
               />
-              <h5 class="text-xl font-medium leading-tight mb-2">{emailData?.name}</h5>
-              <p class="text-gray-500">{emailData?.email}</p>
-              <p class="text-neutral font-bold">{emailData?.accountType}</p>
+              <h5 className="text-xl font-medium leading-tight mb-2">{emailData?.name}</h5>
+              <p className="text-gray-500">{emailData?.email}</p>
+              <p className="text-neutral font-bold">{emailData?.accountType}</p>
   
             </div>
           </div>

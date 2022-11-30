@@ -1,10 +1,18 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
+import Spinner from "../../Shared/Spinner/Spinner";
 // import UseTitle from "../../../Hooks/UseTitle";
 
 const BlogDetails = () => {
+ 
   const blogDetaills = useLoaderData();
-  console.log(blogDetaills)
+
+
+  const navigation = useNavigation();
+  if (navigation.state === "loading") {
+    return <Spinner></Spinner>;
+  }
+
   const { _id, img, question, CATEGORY, ans_p_one, cover_img, ans_p_two , Timestamp} =
     blogDetaills;
     // UseTitle(`Blog- ${question}`)

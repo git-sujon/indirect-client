@@ -16,7 +16,7 @@ const AllSeller = () => {
            return data
         }
     })
-    console.log(users);
+    
 
     const varifingHandler = (user) => {
         fetch(`http://localhost:5000/users/${user?._id}`, {
@@ -37,6 +37,7 @@ const AllSeller = () => {
               : toast.success(`User Verified `);
           }
           setToggle(!toggle);
+
           refetch();
 
         //   fetch(`http://localhost:5000/products?isVerified=isVerified`,{
@@ -54,6 +55,16 @@ const AllSeller = () => {
        
         }
       });
+    }
+
+    const verifyUserInProduct = (user) => {
+      fetch(`http://localhost:5000/products?email=${user?.email}`, {
+        method: 'get',
+            headers: {
+                "content-type": "application/json",
+              },
+            //   body: JSON.stringify({ isVerified: toggle }),
+      })
     }
 
     const deleteUserHndler = (user) => {
