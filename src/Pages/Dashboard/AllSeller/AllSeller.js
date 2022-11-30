@@ -57,15 +57,7 @@ const AllSeller = () => {
       });
     }
 
-    const verifyUserInProduct = (user) => {
-      fetch(`http://localhost:5000/products?email=${user?.email}`, {
-        method: 'get',
-            headers: {
-                "content-type": "application/json",
-              },
-            //   body: JSON.stringify({ isVerified: toggle }),
-      })
-    }
+    
 
     const deleteUserHndler = (user) => {
         fetch(`http://localhost:5000/users/${user?._id}`, {
