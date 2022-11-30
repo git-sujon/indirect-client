@@ -17,7 +17,7 @@ const Products = () => {
     const { data: products = [], isLoading } = useQuery({
         queryKey: ["products", category?.catagoriesName],
         queryFn: async () => {
-          const res = await fetch(`http://localhost:5000/products?category=${category.catagoriesName}`);
+          const res = await fetch(`https://server-git-sujon.vercel.app/products?category=${category.catagoriesName}`);
           const data = await res.json();
           return data;
         },

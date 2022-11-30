@@ -14,7 +14,7 @@ const MyOrders = () => {
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?buyerEmail=${user?.email}`
+        `https://server-git-sujon.vercel.app/bookings?buyerEmail=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -24,7 +24,7 @@ const MyOrders = () => {
 
   const deleteHandler = (booking) => {
     
-    fetch(`http://localhost:5000/bookings/${booking._id}`, {
+    fetch(`https://server-git-sujon.vercel.app/bookings/${booking._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

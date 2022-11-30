@@ -17,7 +17,7 @@ const AllReports = () => {
       queryKey: ["products", user?.email],
       queryFn: async () => {
         const res = await fetch(
-          `http://localhost:5000/reportedProduct`
+          `https://server-git-sujon.vercel.app/reportedProduct`
         );
         const data = await res.json();
         return data;
@@ -27,7 +27,7 @@ const AllReports = () => {
 
     const deleteHandler = (product) => {
   
-      fetch(`http://localhost:5000/reportedProduct/${product._id}`, {
+      fetch(`https://server-git-sujon.vercel.app/reportedProduct/${product._id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -43,7 +43,7 @@ const AllReports = () => {
     };
 
     const deleteOrginalProduct = (product) => {
-        fetch(`http://localhost:5000/products/${product.origin_id}`, {
+        fetch(`https://server-git-sujon.vercel.app/products/${product.origin_id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
