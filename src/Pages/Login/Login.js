@@ -24,7 +24,7 @@ const Login = () => {
   // const [token] = UseToken(loginUseremail)
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathName || "/";
+  const from = location?.state?.from?.pathName || "/dashboard";
   const [accountTypes, setAccountTypes] = useState("");
 
   // if(token){

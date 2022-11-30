@@ -1,14 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../Contexts/AuthProvider";
-import Spinner from "../Shared/Spinner/Spinner";
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Contexts/AuthProvider';
+import Spinner from '../../Shared/Spinner/Spinner';
 
-const MyProducts = () => {
-  // const [products, setProducts] = useState([])
-  const { user } = useContext(AuthContext);
+const AllProduct = () => {
+
+    const { user } = useContext(AuthContext);
   const [toggle, setToggle] = useState(true);
 
   const {
@@ -16,10 +14,10 @@ const MyProducts = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["products", user?.email],
+    queryKey: ["products", ],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`
+        `http://localhost:5000/products`
       );
       const data = await res.json();
       return data;
@@ -27,7 +25,7 @@ const MyProducts = () => {
   });
 
   const deleteHandler = (product) => {
-    
+    console.log(product);
     fetch(`http://localhost:5000/products/${product._id}`, {
       method: "DELETE",
     })
@@ -66,15 +64,11 @@ const MyProducts = () => {
     <Spinner></Spinner>;
   }
 
-  return (
-    <div>
-      {products.length === 0 && 
-      <div className="min-h-screen flex flex-col justify-center items-center ">
-        <p className="text-red-900 text-3xl lg:text-5xl font-bold">No Product Added Yet</p>
-        <p className="text-2xl lg:text-3xl font-bold text-neutral">Please Add A Product</p>
-        <Link to='/dashboard/addProducts' className="btn btn-neutral text-white font-bold mt-4">ADD A Product</Link>
-      </div> }
-      <div className="overflow-x-auto w-full">
+
+
+    return (
+        <div>
+          <div className="overflow-x-auto w-full">
         <table className="table w-full">
           {/* <!-- head --> */}
           <thead className="bg-neutral">
@@ -147,8 +141,8 @@ const MyProducts = () => {
           {/* <!-- foot --> */}
         </table>
       </div>
-    </div>
-  );
+        </div>
+    );
 };
 
-export default MyProducts;
+export default AllProduct;

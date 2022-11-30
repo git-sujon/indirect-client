@@ -46,7 +46,7 @@ const DashboardLayout = () => {
             (emailData?.accountType === 'Seller' || emailData?.isAdmin)  &&
             <>
              <li>
-              <Link to="/dashboard">My Products</Link>
+              <Link to="/dashboard">{emailData?.isAdmin ? 'Admin' : 'My'} Products</Link>
             </li>
 
             <li>
@@ -56,27 +56,37 @@ const DashboardLayout = () => {
            }
 
 
-            {
-                (emailData?.accountType === 'Buyer' || emailData?.isAdmin ) &&
-                <li>
-                <Link to="/dashboard/myOrders">My Orders</Link>
-              </li>
-  
-            }
+          
 
            {
 
             emailData?.isAdmin && 
             <>
              <li>
+              <Link to="/dashboard/allProducts">All Products</Link>
+            </li>
+             <li>
               <Link to="/dashboard/allSellers">All Sellers</Link>
             </li>
             <li>
               <Link to="/dashboard/allBuyers">All Buyers</Link>
             </li>
+            <li>
+              <Link to="/dashboard/allReports">Reported Items</Link>
+            </li>
             
             </>
            }
+
+
+
+{
+                (emailData?.accountType === 'Buyer' || emailData?.isAdmin ) &&
+                <li>
+                <Link to="/dashboard/myOrders">My Orders</Link>
+              </li>
+  
+            }
 
           </ul>
         </div>

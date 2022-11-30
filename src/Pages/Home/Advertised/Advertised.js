@@ -38,7 +38,7 @@ const Advertised = () => {
   return (
     <div className="my-20">
     {   
-    advertProducts &&
+    (advertProducts.length) ?
           <div>
           <h2 className="text-center text-4xl font-semibold uppercase mb-10">
             Advertise
@@ -53,6 +53,8 @@ const Advertised = () => {
            }
            
         </div>
+        :
+        ''
     }
     </div>
   );

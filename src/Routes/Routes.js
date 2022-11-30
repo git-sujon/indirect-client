@@ -6,6 +6,8 @@ import Blog from '../Pages/Blog/Blog';
 import BlogDetails from '../Pages/Blog/BlogDetails/BlogDetails';
 import MyOrders from '../Pages/Buyer/MyOrders';
 import AllBuyers from '../Pages/Dashboard/AllBuyers/AllBuyers';
+import AllProduct from '../Pages/Dashboard/AllProduct/AllProduct';
+import AllReports from '../Pages/Dashboard/AllReports/AllReports';
 import AllSeller from '../Pages/Dashboard/AllSeller/AllSeller';
 import Payment from '../Pages/Dashboard/Payment/Payment';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage';
@@ -53,11 +55,7 @@ const Routes =  createBrowserRouter([
                 },
               
             
-                {
-                    path: '/payment/:id',
-                    element:<Payment></Payment>,
-                    loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
-                },
+               
                 {
                     path:'/dashboard',
                     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
@@ -81,6 +79,19 @@ const Routes =  createBrowserRouter([
                         {
                             path: '/dashboard/allBuyers',
                             element:<PrivateRoute><AllBuyers></AllBuyers></PrivateRoute>
+                        },
+                        {
+                            path: '/dashboard/allProducts',
+                            element:<PrivateRoute><AllProduct></AllProduct></PrivateRoute>
+                        },
+                        {
+                            path: '/dashboard/allReports',
+                            element:<PrivateRoute><AllReports></AllReports></PrivateRoute>
+                        },
+                        {
+                            path: '/dashboard/payment/:id',
+                            element:<PrivateRoute><Payment></Payment></PrivateRoute>,
+                            loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
                         },
                     ]
                 }

@@ -13,13 +13,13 @@ const AddProducts = () => {
   const {
     register,
     handleSubmit,
-    
+
     formState: { errors },
   } = useForm();
 
   const { user, userEmailQueryData, emailData, ImageHosting, hostedPhotoUrl } =
     useContext(AuthContext);
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const productInfoWithText = ["Property_Name", "Location"];
 
@@ -56,7 +56,11 @@ const AddProducts = () => {
     userEmailQueryData(user?.email);
   }, [user?.email]);
 
-  const { data: catagories = [], isLoading , refetch } = useQuery({
+  const {
+    data: catagories = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["catagories"],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/catagories`);
@@ -65,13 +69,10 @@ const AddProducts = () => {
     },
   });
   if (!user && isLoading && !emailData && !catagories) {
-    return <Spinner></Spinner>
+    return <Spinner></Spinner>;
   }
 
   const addProductsHandler = (event) => {
-    
-    
-
     const productInfo = {
       Property_Name: event.Property_Name,
       Location: event.Location,
@@ -99,42 +100,38 @@ const AddProducts = () => {
       Garden: event.Garden,
       Solar_Panels: event.Solar_Panels,
       InterCom: event.InterCom,
-      category: event?.category,
+      category: event?.category  || "Office Space",
       condition: event.condition,
       productDescription: event.productDescription,
       isSold: false,
       isAdvertized: false,
       isBooked: false,
-      isVerified:false,
-      email:emailData?.email,
+      isVerified: false,
+      email: emailData?.email,
       sellerID: emailData?._id,
-      accountType:emailData?.accountType,
-   
+      accountType: emailData?.accountType,
     };
 
     // if(event?.productPhoto[0]){
     //   ImageHosting(event?.productPhoto[0]);
     // }
     // if (hostedPhotoUrl) {
-      fetch(`http://localhost:5000/products`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(productInfo),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.acknowledged) {
-            toast.success("Product Added");
-            navigate('/dashboard')
-         
-          }
-        });
+    fetch(`http://localhost:5000/products`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(productInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success("Product Added");
+          navigate("/dashboard");
+        }
+      });
     // }
-
-
   };
 
   return (
@@ -170,8 +167,8 @@ const AddProducts = () => {
         {/* .................... */}
         {/* image file and others  */}
 
-        {/* <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
-          <div className="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
+        <div className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-1">
+          {/* <div className="file_upload p-5 border-4 border-dotted border-secondary rounded-md">
             <svg
               className="text-neutral  w-16 mx-auto mb-4"
               xmlns="http://www.w3.org/2000/svg"
@@ -202,61 +199,57 @@ const AddProducts = () => {
               </label>
             </div>
            
+          </div> */}
+
+          <div>
+            <label
+              className="text-gray-700 dark:text-gray-900"
+              htmlFor="username"
+            >
+              Enter ProductPhoto Url
+            </label>
+            <input
+              {...register("productPhoto")}
+              required
+              type="text"
+              className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+            />
+          </div>
+        </div>
+
+        <div  className="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
+          <div>
+            <label
+              className="text-gray-700 dark:text-gray-900"
+              htmlFor="username"
+            >
+              Seller Name
+            </label>
+            <input
+              {...register("sellerName")}
+              required
+              defaultValue={emailData?.name}
+              readOnly
+              type="text"
+              className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+            />
           </div>
 
           <div>
-            <div>
-              <label
-                className="text-gray-700 dark:text-gray-900"
-                htmlFor="username"
-              >
-                Seller Name
-              </label>
-              <input
-                {...register("sellerName")}
-                required
-                defaultValue={emailData?.name}
-                readOnly
-                type="text"
-                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-              />
-            </div>
-
-            <div>
-              <label
-                className="text-gray-700 dark:text-gray-900"
-                htmlFor="username"
-              >
-                Seller Phone Number
-              </label>
-              <input
-                {...register("Phone_Number")}
-                required
-                
-               
-                type="text"
-                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-              />
-            </div>
+            <label
+              className="text-gray-700 dark:text-gray-900"
+              htmlFor="username"
+            >
+              Seller Phone Number
+            </label>
+            <input
+              {...register("Phone_Number")}
+              required
+              type="text"
+              className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+            />
           </div>
-        </div> */}
-
-<div>
-              <label
-                className="text-gray-700 dark:text-gray-900"
-                htmlFor="username"
-              >
-                Enter ProductPhoto Url
-              </label>
-              <input
-                {...register("productPhoto")}
-                required
-               
-         
-                type="text"
-                className="block w-full px-4 py-2  text-gray-700 bg-white border border-gray-200 rounded-md   dark:border-secondary focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-              />
-            </div>
+        </div>
 
         {/* ................. */}
         {/* ................. Number BASED  */}
@@ -312,11 +305,12 @@ const AddProducts = () => {
             className="select select-success w-full max-w-xs"
             required
           >
-            {catagories && catagories?.map((category) => (
-              <option key={category?._id} value={category?.catagoriesName}>
-                {category && category?.catagoriesName}
-              </option>
-            ))}
+            {catagories  &&
+              catagories?.map((category) => (
+                <option key={category?._id} value={category?.catagoriesName}  >
+                  {category && category?.catagoriesName}
+                </option>
+              ))}
           </select>
         </div>
         {/* .................  */}
@@ -552,9 +546,10 @@ const AddProducts = () => {
             Save
           </button>
         </div>
-        <p className="text-error text-center">{errors?.productPhoto?.message}</p>
+        <p className="text-error text-center">
+          {errors?.productPhoto?.message}
+        </p>
       </form>
-      
     </section>
   );
 };

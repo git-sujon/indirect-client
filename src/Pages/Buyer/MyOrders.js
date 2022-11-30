@@ -1,34 +1,39 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../Contexts/AuthProvider';
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const MyOrders = () => {
-    const {user} = useContext(AuthContext)
-    const {
-        data: bookings = [],
-        isLoading,
-        refetch,
-      } = useQuery({
-        queryKey: ["bookings", user?.email],
-        queryFn: async () => {
-          const res = await fetch(
-            `http://localhost:5000/bookings?buyerEmail=${user?.email}`
-          );
-          const data = await res.json();
-          return data;
-        },
-      });
+  const { user } = useContext(AuthContext);
+  const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["bookings", user?.email],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/bookings?buyerEmail=${user?.email}`
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
 
-//       const dateTime = new Date(Timestamp);
-//   const dividingTime = dateTime?.toLocaleString()?.split(":");
-//   const showingTime =
-//     dividingTime[0] + ":" + dividingTime[1] + " " + dividingTime[2].slice(-2);
+  //       const dateTime = new Date(Timestamp);
+  //   const dividingTime = dateTime?.toLocaleString()?.split(":");
+  //   const showingTime =
+  //     dividingTime[0] + ":" + dividingTime[1] + " " + dividingTime[2].slice(-2);
 
-
-    return (
-        <div>
-             <div className="overflow-x-auto w-full">
+  return (
+    <div>
+        {bookings?.length === 0 && 
+      <div className="min-h-screen flex flex-col justify-center items-center ">
+        <p className="text-red-900 text-3xl lg:text-5xl font-bold">You Have No Order</p>
+        <p className="text-2xl lg:text-3xl font-bold text-neutral">Please Order / Booking Something</p>
+        <Link to='/category/63819333db36b3423f40dba1' className="btn btn-neutral text-white font-bold mt-4">Have a Look</Link>
+      </div> }
+      <div className="overflow-x-auto w-full">
         <table className="table w-full">
           {/* <!-- head --> */}
           <thead className="bg-neutral">
@@ -44,7 +49,6 @@ const MyOrders = () => {
             {/* <!-- row 1 --> */}
 
             {bookings.map((booking) => (
-                
               <tr key={booking?._id}>
                 <td>
                   <div className="flex items-center space-x-3">
@@ -68,16 +72,15 @@ const MyOrders = () => {
                   <p className="text-neutral text-sm font-semibold">
                     {booking?.sellerName}
                   </p>
-                  <p className='text-sm'>{booking.Phone_Number}</p>
+                  <p className="text-sm">{booking.Phone_Number}</p>
                 </td>
                 {/* <td className="text-neutral text-sm font-semibold">
                   {booking?.Timestamp}
                 </td> */}
-                <td className="flex items-center">
-                ${booking?.productPrice}
-                </td>
+                <td className="flex items-center">${booking?.productPrice}</td>
                 <td>
-                  <Link to={`/payment/${booking._id}`}
+                  <Link
+                    to={`/dashboard/payment/${booking._id}`}
                     // onClick={() => payNowHandler(booking)}
                     className="btn btn-neutral  hover:btn-primary text-white font-semibold"
                   >
@@ -90,8 +93,8 @@ const MyOrders = () => {
           {/* <!-- foot --> */}
         </table>
       </div>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default MyOrders;

@@ -7,9 +7,9 @@ const BannerItem = ({ slider }) => {
   const { image, prev, id, next } = slider;
 
   return (
-    <div id={`slide${id}`} className=" carousel-item relative w-full h-[35rem]">
-      <div className="carousel-image-overly h-[35rem]">
-        <img  src={image} alt="" className="w-full " />
+    <div id={`slide${id}`} className=" carousel-item relative min-w-full max-h-[650px]">
+      <div className="carousel-image-overly min-w-full max-h-[650px]">
+        <img  src={image} alt="" className="min-w-full max-h-[650px]" />
       </div>
       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 ">
         <a href={`#slide${prev}`} className="text-5xl text-secondary ">

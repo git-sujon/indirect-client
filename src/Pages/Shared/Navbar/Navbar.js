@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
 import { useEffect } from "react";
@@ -5,9 +6,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import logo from "../../../Resource/Logo/Indirect-white.png";
+import Spinner from "../Spinner/Spinner";
 
 const Navbar = () => {
-  const [catagories, setCatagories] = useState([]);
+  // const [catagories, setCatagories] = useState([]);
   const {user,logOut}= useContext(AuthContext)
 
 
@@ -17,15 +19,28 @@ const Navbar = () => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
-    // axios.get(`http://localhost:5000/catagories/`).then((data) => {
-    fetch(`http://localhost:5000/catagories/`)
-    .then(res=> res.json())
-    .then((data) => {
-      // setCatagories(data.data);
-      setCatagories(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   //
+  //   fetch(`http://localhost:5000/catagories/`)
+  //   .then(res=> res.json())
+  //   .then((data) => {
+  //     // setCatagories(data.data);
+  //     setCatagories(data);
+  //   });
+  // }, []);
+
+
+  const {data:catagories = [] , isLoading} = useQuery({
+    queryKey:['catagories'],
+    queryFn: ()=>{
+      const data = axios.get(`http://localhost:5000/catagories/`)
+      return data
+    }
+  })
+  if(isLoading){
+    return <Spinner></Spinner>
+  }
+ 
 
   const menus = (
     <>
@@ -47,7 +62,7 @@ const Navbar = () => {
           </svg>
         </Link>
         <ul className=" bg-primary p-2 " style={{zIndex:"1000"}}>
-          {catagories?.map((category) => (
+          {catagories?.data?.map((category) => (
             <li key={category?._id}>
               <Link to={`/category/${category?._id}`}>{category?.catagoriesName}</Link>
             </li>
@@ -70,7 +85,7 @@ const Navbar = () => {
 
   return (
  
-      <div className="navbar bg-primary text-white font-bold">
+      <div className="navbar bg-primary text-white font-bold ">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={2} className="btn btn-ghost lg:hidden">

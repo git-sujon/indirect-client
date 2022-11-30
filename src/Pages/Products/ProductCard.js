@@ -10,13 +10,13 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/solid";
 import ConfirmationModal from "../Shared/ConfirmationModal/ConfirmationModal";
-
+import toast from "react-hot-toast";
 
 const ProductCard = ({ product, setProduct }) => {
-// console.log(product)
-
+  // console.log(product)
 
   const {
+    _id,
     Property_Name,
     Location,
     productPhoto,
@@ -47,12 +47,40 @@ const ProductCard = ({ product, setProduct }) => {
     productDescription,
 
     Timestamp,
-    isVerified
+    isVerified,
   } = product;
- 
 
-// console.log(users)
+  const reportToButtonHandler = (event) => {
+    const reportedProducts = {
+      origin_id: _id,
+      Property_Name: event.Property_Name,
+      Location: event.Location,
+      productPhoto: event.productPhoto,
+      sellerName: event.sellerName,
+      Phone_Number: event.Phone_Number,
+      Total_Size_Sqr_Feet: event.Total_Size_Sqr_Feet,
+      Selling_Price: event.Selling_Price,
+      category: event.category,
+      isVerified: event.isVerified,
+    };
+    fetch(`http://localhost:5000/reportedProduct`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reportedProducts),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast("Product is Reported", {
+            icon: "❗",
+          });
+        }
+      });
+  };
 
+  // console.log(users)
 
   const dateTime = new Date(Timestamp);
   const dividingTime = dateTime?.toLocaleString()?.split(":");
@@ -60,13 +88,12 @@ const ProductCard = ({ product, setProduct }) => {
     dividingTime[0] + ":" + dividingTime[1] + " " + dividingTime[2].slice(-2);
   return (
     <div className="block border rounded-lg p-4 shadow-sm shadow-indigo-100">
-      
       <div className="relative overflow-hidden">
-      <img
-        alt="Home"
-        src={productPhoto}
-        className="h-56 w-full rounded-md object-cover hover:scale-110 transition duration-300 ease-in-out"
-      />
+        <img
+          alt="Home"
+          src={productPhoto}
+          className="h-56 w-full rounded-md object-cover hover:scale-110 transition duration-300 ease-in-out"
+        />
       </div>
 
       <div className="mt-2">
@@ -97,9 +124,15 @@ const ProductCard = ({ product, setProduct }) => {
             <UsersIcon className="h-4 w-4 text-neutral"></UsersIcon>
             <div className="mt-1.5 sm:ml-3 sm:mt-0 flex items-center">
               <p className="font-medium">{sellerName}</p>
-              {isVerified && (
-                <CheckBadgeIcon className="h-5 w-5 text-blue-500"></CheckBadgeIcon>
-              )}
+
+              {
+                //
+                isVerified?.isVerified ? (
+                  <CheckBadgeIcon className="h-5 w-5 ml-2 text-blue-500"></CheckBadgeIcon>
+                ) : (
+                  <CheckBadgeIcon className="h-5 w-5 ml-2 text-red-500"></CheckBadgeIcon>
+                )
+              }
             </div>
           </div>
           <div className="sm:inline-flex sm:shrink-0 sm:items-center">
@@ -144,30 +177,72 @@ const ProductCard = ({ product, setProduct }) => {
 
           <div className="sm:inline-flex items-center sm:shrink-0 sm:items-center">
             <CurrencyDollarIcon className="h-4 w-4 text-neutral"></CurrencyDollarIcon>
-            
-              <p className="font-medium">{Original_Price} Buying Price</p>
-            
+
+            <p className="font-medium">{Original_Price} Buying Price</p>
           </div>
         </div>
         {/* ....................  */}
 
         <div className="mt-4 flex  justify-between items-center gap-8 text-sm">
-          <div className=" border-2 border-double border-gray-500 p-0.5">
-            <p className="mb-0 text-gray-400 ">{category}</p>
+          <div className="flex item-center">
+            {/* category  */}
+            <div className=" border-2 border-double border-gray-500 p-0.5">
+              <p className="mb-0 text-gray-400 ">{category}</p>
+            </div>
+
+            {/* report button  */}
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex={0}
+                className="btn btn-circle btn-ghost btn-xs text-red-900"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </label>
+              <div
+                tabIndex={0}
+                className="card compact dropdown-content shadow bg-red-100 cursor hover:bg-red-400 cursor-pointer w-20 "
+              >
+                <div
+                  onClick={() => reportToButtonHandler(product)}
+                  className="card-body"
+                >
+                  Report
+                </div>
+              </div>
+            </div>
+
+            {/* wishlist  */}
+            <div className="rating rating-sm mt-1 mr-3 ">
+              <input
+                type="radio"
+                name="rating-3"
+                className="mask mask-heart bg-neutral"
+              />
+            </div>
           </div>
 
-          <div onClick={()=>setProduct(product)}>
-          <label htmlFor="confirmationModal" className="btn btn-sm btn-neutral rounded-none ">Book Now</label>
+          <div onClick={() => setProduct(product)}>
+            <label
+              htmlFor="confirmationModal"
+              className="btn btn-sm btn-neutral rounded-none "
+            >
+              Book Now
+            </label>
+          </div>
         </div>
-
-     
-
-        </div>
-
-       
       </div>
-
-      
     </div>
   );
 };

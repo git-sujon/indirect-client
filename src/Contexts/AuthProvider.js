@@ -48,7 +48,7 @@ const AuthProvider = ({children}) => {
     
 
     const userEmailQueryData = (email) => {
-        setLoading(true)
+       
   // axios
     // .post(`http://localhost:5000/users?email=${event?.email}`)
     fetch(`http://localhost:5000/users?email=${email}`, {
@@ -67,7 +67,7 @@ const AuthProvider = ({children}) => {
 
     const ImageHosting = (photoFilePath) => {
     
-        setLoading(true)
+   
         const formData = new FormData();
         formData.append("image", photoFilePath);
         const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_image_host_API}`;
