@@ -40,7 +40,7 @@ const Advertised = () => {
     {   
     (advertProducts.length) ?
           <div>
-          <h2 className="text-center text-4xl font-semibold uppercase mb-10">
+          <h2 className="text-center text-4xl font-semibold uppercase mb-10 text-gray-700">
             Advertise
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
