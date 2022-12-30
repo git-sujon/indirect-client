@@ -50,7 +50,7 @@ const AuthProvider = ({children}) => {
     const userEmailQueryData = (email) => {
        
   
-    fetch(`https://server-git-sujon.vercel.app/users?email=${email}`, {
+    fetch(`http://localhost:5000/users?email=${email}`, {
       method: "GET",
       
     })

@@ -11,7 +11,7 @@ const AllSeller = () => {
     const {data:users = [], isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async()=> {
-           const res= await fetch(`https://server-git-sujon.vercel.app/sellers?accountType=Seller`)
+           const res= await fetch(`http://localhost:5000/sellers?accountType=Seller`)
            const data = await res.json()
            return data
         }
@@ -19,7 +19,7 @@ const AllSeller = () => {
     
 
     const varifingHandler = (user) => {
-        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
+        fetch(`http://localhost:5000/users/${user?._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -40,7 +40,7 @@ const AllSeller = () => {
 
           refetch();
 
-        //   fetch(`https://server-git-sujon.vercel.app/products?isVerified=isVerified`,{
+        //   fetch(`http://localhost:5000/products?isVerified=isVerified`,{
         //     method: 'GET',
         //     headers: {
         //         "content-type": "application/json",
@@ -60,7 +60,7 @@ const AllSeller = () => {
     
 
     const deleteUserHndler = (user) => {
-        fetch(`https://server-git-sujon.vercel.app/users/${user?._id}`, {
+        fetch(`http://localhost:5000/users/${user?._id}`, {
             method: "DELETE",
             
         })

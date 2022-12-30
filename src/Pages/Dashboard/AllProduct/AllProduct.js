@@ -17,7 +17,7 @@ const AllProduct = () => {
     queryKey: ["products", ],
     queryFn: async () => {
       const res = await fetch(
-        `https://server-git-sujon.vercel.app/products`
+        `http://localhost:5000/products`
       );
       const data = await res.json();
       return data;
@@ -26,7 +26,7 @@ const AllProduct = () => {
 
   const deleteHandler = (product) => {
 
-    fetch(`https://server-git-sujon.vercel.app/products/${product._id}`, {
+    fetch(`http://localhost:5000/products/${product._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -38,7 +38,7 @@ const AllProduct = () => {
   };
 
   const makeAdvertizedHandler = (product) => {
-    fetch(`https://server-git-sujon.vercel.app/products/${product._id}`, {
+    fetch(`http://localhost:5000/products/${product._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

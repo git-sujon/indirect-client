@@ -29,7 +29,7 @@ const Checkout = ({ bookingData }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("https://server-git-sujon.vercel.app/create-payment-intent", {
+        fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const Checkout = ({ bookingData }) => {
                 buyerEmail,
                 bookingId: _id
             }
-            fetch('https://server-git-sujon.vercel.app/payments', {
+            fetch('http://localhost:5000/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -116,7 +116,7 @@ const Checkout = ({ bookingData }) => {
         setProcessing(false);
 
         const deleteOrginalProduct = (productId) => {
-            fetch(`https://server-git-sujon.vercel.app/products/${productId}`, {
+            fetch(`http://localhost:5000/products/${productId}`, {
                 method: "DELETE",
               })
                 .then((res) => res.json())

@@ -32,17 +32,17 @@ const Routes =  createBrowserRouter([
                 {
                     path:'category/:id',
                     element:<Products></Products>,
-                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/catagories/${params.id}`)
+                    loader:({params})=> fetch(`http://localhost:5000/catagories/${params.id}`)
                 },
                 {
                     path:'blog',
                     element:<Blog></Blog>,
-                    loader:()=> fetch(`https://server-git-sujon.vercel.app/blogs`)
+                    loader:()=> fetch(`http://localhost:5000/blogs`)
                 },
                 {
                     path:'blog/:id',
                     element:<BlogDetails></BlogDetails>,
-                    loader:({params})=> fetch(`https://server-git-sujon.vercel.app/blogs/${params.id}`)
+                    loader:({params})=> fetch(`http://localhost:5000/blogs/${params.id}`)
                 },
            
                 {
@@ -91,7 +91,7 @@ const Routes =  createBrowserRouter([
                         {
                             path: '/dashboard/payment/:id',
                             element:<PrivateRoute><Payment></Payment></PrivateRoute>,
-                            loader:({params})=> fetch(`https://server-git-sujon.vercel.app/bookings/${params.id}`)
+                            loader:({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
                         },
                     ]
                 }
