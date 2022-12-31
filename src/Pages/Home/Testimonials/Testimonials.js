@@ -97,6 +97,20 @@ const Testimonials = () => {
           spaceBetween={20}
           loop={true}
           mousewheel={true}
+          breakpoints={{
+            100: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+          }}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
