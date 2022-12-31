@@ -36,12 +36,12 @@ const Advertised = () => {
   //   console.log(products);
 
   return (
-    <div className="my-20">
+    <div className="my-32">
     {   
     (advertProducts.length) ?
           <div>
-          <h2 className="text-center text-4xl font-semibold uppercase mb-10 text-gray-700">
-            Advertise
+          <h2 className="text-center text-4xl font-semibold uppercase mb-32 text-gray-700">
+            Advertise Products
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {advertProducts?.map((product) => (
