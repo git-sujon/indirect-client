@@ -92,16 +92,16 @@ const Testimonials = () => {
         </div>
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
         <Swiper
-          effect={"coverflow"}
-          slidesPerView={3}
-          spaceBetween={20}
-          loop={true}
-          mousewheel={true}
-          breakpoints={{
-            100: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
+              effect={"coverflow"}
+              slidesPerView={3}
+              spaceBetween={20}
+              loop={true}
+              mousewheel={true}
+              breakpoints={{
+                100: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
             768: {
               slidesPerView: 1,
               spaceBetween: 20,
