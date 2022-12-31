@@ -1,7 +1,7 @@
 import { MapPinIcon, StarIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper";
+import { Autoplay, Pagination, Navigation, EffectCoverflow,Mousewheel } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -95,7 +95,8 @@ const Testimonials = () => {
           effect={"coverflow"}
           slidesPerView={3}
           spaceBetween={20}
-          
+          loop={true}
+          mousewheel={true}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -108,7 +109,7 @@ const Testimonials = () => {
             delay: 2000,
             disableOnInteraction: false,
           }}
-          modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
+          modules={[Autoplay, Pagination, Navigation, EffectCoverflow, Mousewheel]}
         
         >
           {customers.map((customer) => (
