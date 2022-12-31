@@ -11,8 +11,9 @@ const Home = () => {
             <HomeBanner></HomeBanner>
             <div className='container px-5 mx-auto'>
             <CatagoriesShowcase></CatagoriesShowcase>
-            <Advertised></Advertised>
             <Testimonials></Testimonials>
+            <Advertised></Advertised>
+            
             <SubscribeCTA></SubscribeCTA>
           
 
