@@ -63,7 +63,7 @@ const ProductCard = ({ product, setProduct }) => {
       category: event.category,
       isVerified: event.isVerified,
     };
-    fetch(`http://localhost:5000/reportedProduct`, {
+    fetch(`https://server-git-sujon.vercel.app/reportedProduct`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

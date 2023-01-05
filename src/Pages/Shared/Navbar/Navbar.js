@@ -24,7 +24,7 @@ const Navbar = () => {
   const {data:catagories = [] , isLoading} = useQuery({
     queryKey:['catagories'],
     queryFn: ()=>{
-      const data = axios.get(`http://localhost:5000/catagories`)
+      const data = axios.get(`https://server-git-sujon.vercel.app/catagories`)
       return data
     }
   })

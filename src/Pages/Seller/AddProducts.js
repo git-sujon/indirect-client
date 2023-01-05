@@ -66,7 +66,7 @@ const AddProducts = () => {
   const {data:catagories = [] , isLoading} = useQuery({
     queryKey:['catagories'],
     queryFn: ()=>{
-      const data = axios.get(`http://localhost:5000/catagories`)
+      const data = axios.get(`https://server-git-sujon.vercel.app/catagories`)
       return data
     }
   })
@@ -121,7 +121,7 @@ const AddProducts = () => {
     //   ImageHosting(event?.productPhoto[0]);
     // }
     // if (hostedPhotoUrl) {
-    fetch(`http://localhost:5000/products`, {
+    fetch(`https://server-git-sujon.vercel.app/products`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

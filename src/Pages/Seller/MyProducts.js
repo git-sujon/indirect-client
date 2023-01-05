@@ -19,7 +19,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`
+        `https://server-git-sujon.vercel.app/products?email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -28,7 +28,7 @@ const MyProducts = () => {
 
   const deleteHandler = (product) => {
     
-    fetch(`http://localhost:5000/products/${product._id}`, {
+    fetch(`https://server-git-sujon.vercel.app/products/${product._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -40,7 +40,7 @@ const MyProducts = () => {
   };
 
   const makeAdvertizedHandler = (product) => {
-    fetch(`http://localhost:5000/products/${product._id}`, {
+    fetch(`https://server-git-sujon.vercel.app/products/${product._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
