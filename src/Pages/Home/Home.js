@@ -7,6 +7,7 @@ import HomeBanner from "./HomeBanner/HomeBanner";
 import Search from "./Search/Search";
 import SubscribeCTA from "./SubscribeCTA/SubscribeCTA";
 import Testimonials from "./Testimonials/Testimonials";
+import WhyIndirect from "./WhyIndirect/WhyIndirect";
 
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
        
         <Advertised></Advertised>
         <AgentHiring></AgentHiring>
+        <WhyIndirect></WhyIndirect>
         <Testimonials></Testimonials>
         <AboutIndirect></AboutIndirect>
         <SubscribeCTA></SubscribeCTA>

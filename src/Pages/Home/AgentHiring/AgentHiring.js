@@ -3,18 +3,15 @@ import { Link } from "react-router-dom";
 
 const AgentHiring = () => {
   return (
-    <section class="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
-      <div class="p-8 md:p-12 lg:px-16 lg:py-24">
+    <section class="overflow-hidden sm:grid sm:grid-cols-2 my-32">
+      <div class=" pr-8 pb-8 md:pb-0">
         <div class="mx-auto max-w-xl text-center sm:text-left">
-          <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">
-            Hire Our Agent help you to find the Best House
+          <h2 class="text-3xl font-bold text-gray-900 md:text-6xl">
+          Our Agent Can Help You Find the Best House
           </h2>
 
-          <p class="hidden text-gray-500 md:mt-4 md:block">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas
-            tempus tellus etiam sed. Quam Link scelerisque amet ullamcorper eu enim
-            et fermentum, augue. Aliquet amet volutpat quisque ut interdum
-            tincidunt duis.
+          <p class="hidden text-gray-600 md:mt-4 md:block">
+          Allow our skilled agent to assist you in your search for the perfect home. With their expertise and dedication to finding the best fit for you and your family, you can trust that you will be guided towards the house of your dreams. Don't waste any more time scouring listings on your own, let our agent handle the hard work and help you find the best house on the market.
           </p>
 
           <div class="mt-4 md:mt-8">
@@ -22,7 +19,7 @@ const AgentHiring = () => {
               href="#"
               class="inline-block rounded bg-emerald-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-emerald-700 focus:outline-none focus:ring focus:ring-yellow-400"
             >
-              Hire Now
+              Find a Agent
             </Link>
           </div>
         </div>
@@ -30,8 +27,7 @@ const AgentHiring = () => {
 
       <img
         alt="Student"
-        src="https://images.unsplash.com/photo-1464582883107-8adf2dca8a9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        class="h-56 w-full object-cover sm:h-full"
+        src="https://static.standard.co.uk/homesandproperty/s3fs-public/thumbnails/image/2019/04/16/10/EasterBuyshutterstock-1156208527.jpg?width=968&auto=webp&quality=50&crop=968%3A645%2Csmart"
       />
     </section>
   );
