@@ -2,6 +2,7 @@ import React from "react";
 import CatagoriesShowcase from "../Catagories/CatagoriesShowcase/CatagoriesShowcase";
 import AboutIndirect from "./AboutIndirect/AboutIndirect";
 import Advertised from "./Advertised/Advertised";
+import AgentHiring from "./AgentHiring/AgentHiring";
 import HomeBanner from "./HomeBanner/HomeBanner";
 import Search from "./Search/Search";
 import SubscribeCTA from "./SubscribeCTA/SubscribeCTA";
@@ -17,6 +18,7 @@ const Home = () => {
         <CatagoriesShowcase></CatagoriesShowcase>
        
         <Advertised></Advertised>
+        <AgentHiring></AgentHiring>
         <Testimonials></Testimonials>
         <AboutIndirect></AboutIndirect>
         <SubscribeCTA></SubscribeCTA>
