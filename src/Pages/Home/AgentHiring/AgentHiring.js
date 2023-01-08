@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const AgentHiring = () => {
   return (
-    <section class="overflow-hidden sm:grid sm:grid-cols-2 my-32">
+    <section class="overflow-hidden sm:grid sm:grid-cols-2 pt-32">
       <div class=" pr-8 pb-8 md:pb-0">
         <div class="mx-auto max-w-xl text-center sm:text-left">
           <h2 class="text-3xl font-bold text-gray-900 md:text-6xl">
