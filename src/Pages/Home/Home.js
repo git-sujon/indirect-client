@@ -7,12 +7,13 @@ import Search from "./Search/Search";
 import SubscribeCTA from "./SubscribeCTA/SubscribeCTA";
 import Testimonials from "./Testimonials/Testimonials";
 
+
 const Home = () => {
   return (
     <div>
       <HomeBanner></HomeBanner>
       <div className="container px-5 mx-auto">
-        <Search></Search>
+        {/* <Search></Search> */}
         <CatagoriesShowcase></CatagoriesShowcase>
        
         <Advertised></Advertised>

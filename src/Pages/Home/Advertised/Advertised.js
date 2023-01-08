@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useState } from "react";
+import './Advertised.css'
 
 import ProductCard from "../../Products/ProductCard";
 import ConfirmationModal from "../../Shared/ConfirmationModal/ConfirmationModal";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide,  } from "swiper/react";
 import {
   Autoplay,
   Pagination,
@@ -49,10 +50,10 @@ const Advertised = () => {
   //   console.log(products);
 
   return (
-    <div className="my-32">
+    <div className="my-32 ">
       {advertProducts.length ? (
         <div>
-          <h2 className="text-center text-4xl font-semibold uppercase mb-32 text-gray-700">
+          <h2 className="text-center text-2xl md:text-4xl font-semibold uppercase mb-32 text-gray-700">
             Advertise Products
           </h2>
           {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"> */}
@@ -80,7 +81,9 @@ const Advertised = () => {
               delay: 3000,
               disableOnInteraction: false,
             }}
-            modules={[Autoplay, Pagination, Navigation, Mousewheel]}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation, Mousewheel, ]}
+            
           >
             {advertProducts?.map((product) => (
               <SwiperSlide>

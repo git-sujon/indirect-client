@@ -86,7 +86,7 @@ const Testimonials = () => {
     <div className="my-32 ">
       <div className="container mx-auto px-4">
         <div class="mx-auto max-w-xl text-center">
-          <h2 className="text-center text-4xl font-semibold  mb-32 text-gray-700">
+          <h2 className="text-center text-2xl md:text-4xl font-semibold  mb-32 text-gray-700">
             Reviews from our Users
           </h2>
         </div>

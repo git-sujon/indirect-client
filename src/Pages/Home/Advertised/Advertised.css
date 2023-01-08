@@ -1,0 +1,19 @@
+
+
+.swiper-button-prev::after {
+    color:#00bdba;
+
+}
+.swiper-button-prev, .swiper-rtl .swiper-button-next {
+    left: 0px !important;
+
+}
+
+.swiper-button-next::after {
+    color:#00bdba;
+}
+
+.swiper-button-next, .swiper-rtl .swiper-button-prev {
+    right: 0px !important;
+ 
+}
