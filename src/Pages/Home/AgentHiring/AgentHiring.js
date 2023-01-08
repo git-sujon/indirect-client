@@ -27,7 +27,7 @@ const AgentHiring = () => {
 
       <img
         alt="Student"
-        src="https://static.standard.co.uk/homesandproperty/s3fs-public/thumbnails/image/2019/04/16/10/EasterBuyshutterstock-1156208527.jpg?width=968&auto=webp&quality=50&crop=968%3A645%2Csmart"
+        src="https://i.ibb.co/dfCvzY4/Easter-Buyshutterstock-1156208527.jpg"
       />
     </section>
   );
