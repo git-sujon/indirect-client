@@ -7,7 +7,7 @@ const AgentHiring = () => {
       <div class=" pr-8 pb-8 md:pb-0">
         <div class="mx-auto max-w-xl text-center sm:text-left">
           <h2 class="text-3xl font-bold text-gray-900 md:text-6xl">
-          Our Agent Can Help You Find the Best House
+          Our Agent Can Help You to Find the Best House
           </h2>
 
           <p class="hidden text-gray-600 md:mt-4 md:block">
