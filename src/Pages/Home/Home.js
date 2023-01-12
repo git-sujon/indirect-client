@@ -27,18 +27,19 @@ const Home = () => {
       >
         <HomeBanner></HomeBanner>
       </div>
+      <div
+     
+     >
+     <Counter></Counter>
+     </div>
+
+     {/* ............................. */}
+     {/* ............................. */}
       {/* ............................. */}
       {/* ............................. */}
       <div className="container px-5 mx-auto">
         {/* <Search></Search> */}
-        <div
-     
-        >
-        <Counter></Counter>
-        </div>
-
-        {/* ............................. */}
-        {/* ............................. */}
+      
         <div
           data-aos="fade-up"
           data-aos-offset="300"
@@ -110,6 +111,7 @@ const Home = () => {
         {/* ............................. */}
 
         <div
+        className="mb-32"
           data-aos="fade-up"
           data-aos-easing="linear"
           data-aos-duration="500"
