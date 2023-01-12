@@ -11,6 +11,7 @@ import Testimonials from "./Testimonials/Testimonials";
 import WhyIndirect from "./WhyIndirect/WhyIndirect";
 import AOS from "aos";
 import "aos/dist/aos.css"; // You can also use <link> for styles
+import Counter from "./Counter/Counter";
 // ..
 
 const Home = () => {
@@ -30,6 +31,17 @@ const Home = () => {
       {/* ............................. */}
       <div className="container px-5 mx-auto">
         {/* <Search></Search> */}
+        <div
+          data-aos="fade-up"
+          data-aos-offset="300"
+          data-aos-easing="linear"
+          data-aos-duration="500"
+        >
+        <Counter></Counter>
+        </div>
+
+        {/* ............................. */}
+        {/* ............................. */}
         <div
           data-aos="fade-up"
           data-aos-offset="300"
