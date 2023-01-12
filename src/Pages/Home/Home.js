@@ -19,9 +19,10 @@ const Home = () => {
   return (
     <div>
       <div
-        data-aos="fade-right"
+        data-aos="fade-down"
         data-aos-offset="300"
-        data-aos-easing="ease-in-sine"
+        data-aos-easing="linear"
+        data-aos-duration="1000"
       >
         <HomeBanner></HomeBanner>
       </div>
@@ -31,9 +32,9 @@ const Home = () => {
         {/* <Search></Search> */}
         <div
           data-aos="fade-up"
-          data-aos-duration="4000"
           data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
+          data-aos-easing="linear"
+          data-aos-duration="500"
         >
           <CatagoriesShowcase></CatagoriesShowcase>
         </div>
@@ -42,9 +43,7 @@ const Home = () => {
         {/* ............................. */}
 
         <div
-          data-aos="fade-down"
-          data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
+
         >
           <Advertised></Advertised>
         </div>
@@ -53,9 +52,6 @@ const Home = () => {
         {/* ............................. */}
 
         <div
-          data-aos="fade-right"
-          data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
         >
           <AgentHiring></AgentHiring>
         </div>
@@ -66,7 +62,8 @@ const Home = () => {
         <div
           data-aos="fade-left"
           data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
+          data-aos-easing="linear"
+          data-aos-duration="500"
         >
           <WhyIndirect></WhyIndirect>
         </div>
@@ -77,7 +74,8 @@ const Home = () => {
         <div
           data-aos="zoom-in-up"
           data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
+          data-aos-easing="linear"
+          data-aos-duration="500"
         >
           <Testimonials></Testimonials>
         </div>
@@ -93,7 +91,8 @@ const Home = () => {
         <div
           data-aos="zoom-out-up"
           data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
+          data-aos-easing="linear"
+          data-aos-duration="500"
         >
           <AboutIndirect></AboutIndirect>
         </div>
@@ -104,7 +103,7 @@ const Home = () => {
         <div
           data-aos="fade-up"
           data-aos-easing="linear"
-          data-aos-duration="1500"
+          data-aos-duration="500"
         >
           <SubscribeCTA></SubscribeCTA>
         </div>

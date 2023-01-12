@@ -3,11 +3,25 @@ import { ShieldCheckIcon } from '@heroicons/react/24/solid'
 const WhyIndirect = () => {
   return (
     <section class="overflow-hidden sm:grid sm:grid-cols-2 pt-32">
-      <img
+    <div
+       data-aos="fade-down"
+       data-aos-offset="300"
+       data-aos-easing="linear"
+       data-aos-duration="500"
+    
+    >
+    <img
         alt="Student"
         src="https://i.ibb.co/Br6Tr6g/960x0.jpg"
       />
-      <div class=" pl-8 pb-8 md:pb-0">
+    </div>
+      <div class=" pl-8 pb-8 md:pb-0"
+         data-aos="fade-up"
+         data-aos-offset="300"
+         data-aos-easing="linear"
+         data-aos-duration="500"
+      
+      >
         <div class="mx-auto max-w-xl text-center sm:text-left">
           <h2 class="text-3xl font-bold text-gray-900 md:text-6xl">
             Home Buying And Selling Journey with Indirect

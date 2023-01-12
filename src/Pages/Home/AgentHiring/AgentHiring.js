@@ -1,10 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const AgentHiring = () => {
   return (
     <section class="overflow-hidden sm:grid sm:grid-cols-2 pt-32">
-      <div class=" pr-8 pb-8 md:pb-0">
+      <div class=" pr-8 pb-8 md:pb-0"
+       data-aos="fade-down"
+       data-aos-offset="300"
+       data-aos-easing="linear"
+       data-aos-duration="500"
+      >
         <div class="mx-auto max-w-xl text-center sm:text-left">
           <h2 class="text-3xl font-bold text-gray-900 md:text-6xl">
           Our Agent Can Help You to Find the Best House
@@ -25,10 +31,18 @@ const AgentHiring = () => {
         </div>
       </div>
 
+      <div 
+       data-aos="fade-up"
+       data-aos-offset="300"
+       data-aos-easing="linear"
+       data-aos-duration="500"
+
+      >
       <img
         alt="Student"
         src="https://i.ibb.co/dfCvzY4/Easter-Buyshutterstock-1156208527.jpg"
       />
+      </div>
     </section>
   );
 };
