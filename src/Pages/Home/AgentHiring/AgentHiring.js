@@ -16,7 +16,7 @@ const AgentHiring = () => {
           Our Agent Can Help You to Find the Best House
           </h2>
 
-          <p class="hidden text-gray-600 md:mt-4 md:block">
+          <p class=" text-gray-600 md:mt-4 ">
           Allow our skilled agent to assist you in your search for the perfect home. With their expertise and dedication to finding the best fit for you and your family, you can trust that you will be guided towards the house of your dreams. Don't waste any more time scouring listings on your own, let our agent handle the hard work and help you find the best house on the market.
           </p>
 

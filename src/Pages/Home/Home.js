@@ -20,10 +20,10 @@ const Home = () => {
   return (
     <div>
       <div
-        data-aos="fade-down"
-        data-aos-offset="300"
+        data-aos="slide-down"
+        
         data-aos-easing="linear"
-        data-aos-duration="1000"
+        data-aos-duration="2000"
       >
         <HomeBanner></HomeBanner>
       </div>
@@ -42,7 +42,7 @@ const Home = () => {
       
         <div
           data-aos="fade-up"
-          data-aos-offset="300"
+          
           data-aos-easing="linear"
           data-aos-duration="500"
         >
@@ -53,7 +53,10 @@ const Home = () => {
         {/* ............................. */}
 
         <div
-
+   data-aos="fade-down"
+          
+   data-aos-easing="linear"
+   data-aos-duration="500"
         >
           <Advertised></Advertised>
         </div>
@@ -70,10 +73,7 @@ const Home = () => {
         {/* ............................. */}
 
         <div
-          data-aos="fade-left"
-          data-aos-offset="300"
-          data-aos-easing="linear"
-          data-aos-duration="500"
+       
         >
           <WhyIndirect></WhyIndirect>
         </div>
@@ -83,7 +83,7 @@ const Home = () => {
 
         <div
           data-aos="zoom-in-up"
-          data-aos-offset="300"
+          
           data-aos-easing="linear"
           data-aos-duration="500"
         >
@@ -100,7 +100,7 @@ const Home = () => {
 
         <div
           data-aos="zoom-out-up"
-          data-aos-offset="300"
+          
           data-aos-easing="linear"
           data-aos-duration="500"
         >
