@@ -32,10 +32,7 @@ const Home = () => {
       <div className="container px-5 mx-auto">
         {/* <Search></Search> */}
         <div
-          data-aos="fade-up"
-          data-aos-offset="300"
-          data-aos-easing="linear"
-          data-aos-duration="500"
+     
         >
         <Counter></Counter>
         </div>
